@@ -1,0 +1,22 @@
+# log files
+*.log
+*.log.*
+
+# packages
+node_modules/*
+
+#ide files
+.idea
+*.idea*
+*.iml
+
+#sublime
+*.sublime-*
+
+OSX BS
+*.DS_Store*
+
+# Client built files
+dist
+dest
+coverage

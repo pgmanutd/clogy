@@ -2,7 +2,23 @@
   "name": "clogy",
   "version": "1.0.0",
   "description": "A logging library for browsers and nodejs environment",
+  "homepage": "https://github.com/pgmanutd/clogy",
+  "author": {
+    "name": "pgmanutd",
+    "email": "prashantmanunited@gmail.com",
+    "url": "https://github.com/pgmanutd"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pgmanutd/clogy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pgmanutd/clogy/issues"
+  },
   "main": "lib/clogy.js",
+  "engines": {
+    "node": ">= 0.6.0"
+  },
   "files": [
     "LICENSE",
     "README.md",
@@ -23,14 +39,17 @@
     "eslint": "gulp eslint",
     "coveralls": "cat ./coverage*/*/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "build": "gulp scripts --unwatch && gulp scripts --type=production && gulp copy",
-    "patch": "npm run build && gulp version:patch",
-    "minor": "npm run build && gulp version:minor",
-    "major": "npm run build && gulp version:major"
+    "patch": "npm run build && gulp version:patch && npm publish",
+    "minor": "npm run build && gulp version:minor && npm publish",
+    "major": "npm run build && gulp version:major && npm publish"
   },
   "keywords": [
-    "clogy"
+    "clogy",
+    "log",
+    "logger",
+    "logging",
+    "browser"
   ],
-  "author": "pgmanutd",
   "licenses": [{
     "type": "MIT",
     "url": "https://github.com/pgmanutd/clogy/blob/master/LICENSE"

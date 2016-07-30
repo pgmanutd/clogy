@@ -1,20 +1,9 @@
-import GLOBAL_UTILITIES from './globalUtilities';
+import logging from './logging';
 
-describe('singelton', function() {
-  it('should return cached instance of parent', function() {
-    const Parent = { foo: 'bar' };
-    const Child = function() {};
-    Child.prototype = Object.create(Parent);
-    Child.prototype.constructor = Child;
-    const child = new Child();
-
-    const originalInstance = GLOBAL_UTILITIES.singelton.getInstance(child);
-    const cachedInstance = GLOBAL_UTILITIES.singelton.getInstance(child);
-
-    expect(originalInstance).to.equal(cachedInstance);
-  });
-});
-
+// Passing arrow functions to Mocha is discouraged. Their lexical binding of the
+// this value makes them unable to access the Mocha context, and statements like
+// this.timeout(1000); will not work inside an arrow function.
+// https://mochajs.org/#arrow-functions
 describe('logToConsole', function() {
   let clock;
 
@@ -31,7 +20,7 @@ describe('logToConsole', function() {
       currentLogLevel: ''
     };
 
-    expect(GLOBAL_UTILITIES.logToConsole.bind(null, logToConsoleParams)).to.throw(RangeError);
+    expect(logging.logToConsole.bind(null, logToConsoleParams)).to.throw(RangeError);
   });
 
   it('should throw error for undefined log level', function() {
@@ -39,7 +28,7 @@ describe('logToConsole', function() {
       currentLogLevel: undefined
     };
 
-    expect(GLOBAL_UTILITIES.logToConsole.bind(null, logToConsoleParams)).to.throw(RangeError);
+    expect(logging.logToConsole.bind(null, logToConsoleParams)).to.throw(RangeError);
   });
 
   it('should throw error for null log level', function() {
@@ -47,7 +36,7 @@ describe('logToConsole', function() {
       currentLogLevel: null
     };
 
-    expect(GLOBAL_UTILITIES.logToConsole.bind(null, logToConsoleParams)).to.throw(RangeError);
+    expect(logging.logToConsole.bind(null, logToConsoleParams)).to.throw(RangeError);
   });
 
   it('should throw error if current log level is less than min default level', function() {
@@ -55,7 +44,7 @@ describe('logToConsole', function() {
       currentLogLevel: -1 // Min: 1
     };
 
-    expect(GLOBAL_UTILITIES.logToConsole.bind(null, logToConsoleParams)).to.throw(RangeError);
+    expect(logging.logToConsole.bind(null, logToConsoleParams)).to.throw(RangeError);
   });
 
   it('should throw error if current log level is more than max default level', function() {
@@ -63,7 +52,7 @@ describe('logToConsole', function() {
       currentLogLevel: 8 // Max: 7
     };
 
-    expect(GLOBAL_UTILITIES.logToConsole.bind(null, logToConsoleParams)).to.throw(RangeError);
+    expect(logging.logToConsole.bind(null, logToConsoleParams)).to.throw(RangeError);
   });
 
   describe('logging', function() {
@@ -76,7 +65,7 @@ describe('logToConsole', function() {
     });
 
     it('should not log info message for "none" log level', function() {
-      GLOBAL_UTILITIES.logToConsole({
+      logging.logToConsole({
         currentLogLevel: 7, // None
         loggingType: 'info'
       }, ['Hello World', 'Everyone']);
@@ -85,7 +74,7 @@ describe('logToConsole', function() {
     });
 
     it('should log info message', function() {
-      GLOBAL_UTILITIES.logToConsole({
+      logging.logToConsole({
         currentLogLevel: 4, // Info
         loggingType: 'info'
       }, ['Hello World', 'Everyone']);
@@ -99,7 +88,7 @@ describe('logToConsole', function() {
       console.warn = undefined;
       sinon.stub(console, 'log');
 
-      GLOBAL_UTILITIES.logToConsole({
+      logging.logToConsole({
         currentLogLevel: 5, // Warn
         loggingType: 'warn'
       }, ['Hello World', 'Everyone']);
@@ -108,7 +97,7 @@ describe('logToConsole', function() {
     });
 
     it('should log info message with prefix', function() {
-      GLOBAL_UTILITIES.logToConsole({
+      logging.logToConsole({
         currentLogLevel: 4, // Info
         loggingType: 'info',
         options: {
@@ -120,7 +109,7 @@ describe('logToConsole', function() {
     });
 
     it('should log info message with date', function() {
-      GLOBAL_UTILITIES.logToConsole({
+      logging.logToConsole({
         currentLogLevel: 4, // Info
         loggingType: 'info',
         options: {
@@ -129,7 +118,7 @@ describe('logToConsole', function() {
         }
       }, ['Hello World', 'Everyone']);
 
-      expect(console.info).to.have.been.calledWith('Mon Aug 01 2011 00:00:00.000:', 'Prashant-', 'Hello World', 'Everyone');
+      expect(console.info).to.have.been.calledWith('Mon Aug 01 2011 00:00:00.000: ', 'Prashant-', 'Hello World', 'Everyone');
     });
   });
 });

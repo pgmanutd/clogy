@@ -36,7 +36,10 @@ const webpackBaseConfig = {
   ],
   module: {
     loaders: [{
-      loader: 'babel-loader?presets[]=es2015,compact=false',
+      loader: 'babel-loader',
+      query: {
+        compact: false
+      },
       include: [
         path.resolve(__dirname, DIRS.src)
       ],

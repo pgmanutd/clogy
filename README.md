@@ -5,7 +5,7 @@ A logging library for browsers and nodejs environment. It replaces console's log
 It creates a wrapper over all the console's logging functions and provide decorators for extending the basic functionalities.
 
 #### Browsers and NodeJS Support (```ES5+```)
-* ```IE9+```
+* ```IE9+```: To support IE9 and IE10, Enabled loose mode in babel
 * ```Chrome 5+```
 * ```Firefox 4+```
 * ```Safari 5+```

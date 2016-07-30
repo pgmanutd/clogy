@@ -53,7 +53,7 @@ function justLogItDude(loggingType, args) {
   Function.prototype.bind.call(consoleLoggingType, console).apply(console, args);
 }
 
-// Function style programming;
+// Functional style programming;
 // No mutating params, no state known beforehand
 function logToConsole(logToConsoleParams, args) {
   const { currentLogLevel, loggingType, options = {} } = logToConsoleParams;

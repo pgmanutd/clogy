@@ -38,6 +38,7 @@ A dist folder will be created (with clogy.js library)
 
 When you are done with your changes:
 ```bash
+npm run build
 git branch -b "YOUR_BRANCH_NAME"
 git add --all
 git commit -a -m "commit message"

@@ -30,6 +30,10 @@ const JS_PATHS = {
   libSrc: `${DIRS.dest}/**/*`,
   dest: `${DIRS.dest}`
 };
+const COPYRIGHT_PATHS = {
+  src: ['./LICENSE', './README.md'],
+  dest: './'
+};
 const IS_PRODUCTION = ARGV.type === ENV.prod;
 const KARMA_CONFIG = `${__dirname}/karma.conf.js`;
 const HELP_TASK = gulp.tasks.help;
@@ -104,12 +108,7 @@ gulp.task('copy', 'Copies files from dist folder to lib folder', () => {
 
 // Lint Task
 gulp.task('eslint', 'Run ESLINT on all js files', () => {
-  let file = '';
-  if (ARGV.file) {
-    file = ARGV.file;
-  } else {
-    file = JS_PATHS.src;
-  }
+  const file = ARGV.file || JS_PATHS.src;
 
   return gulp.src(file)
     .pipe(PLUGINS.plumber({
@@ -124,19 +123,22 @@ gulp.task('eslint', 'Run ESLINT on all js files', () => {
   }
 });
 
-//Concatenate and minify all JS files using Webpack
+// Concatenate and minify all JS files using Webpack
 gulp.task('scripts', 'Compiles, Bundles, Minifies JS using Webpack', (callback) => {
   let isCallbackCalled = false;
 
   webpack((
     IS_PRODUCTION ?
     webpackProdConfig :
-    //FIXME: I hate mutation
+    // FIXME: I hate mutation
     (webpackDevConfig.watch = !ARGV.unwatch, webpackDevConfig)), (err, stats) => {
+
     if (err) throw new PLUGINS.util.PluginError('webpack', err);
+
     PLUGINS.util.log('[webpack]', stats.toString({
       colors: true
     }));
+
     if (!isCallbackCalled) {
       isCallbackCalled = true;
       callback();
@@ -144,19 +146,32 @@ gulp.task('scripts', 'Compiles, Bundles, Minifies JS using Webpack', (callback) 
   });
 });
 
-//Karma Runner
+// Karma Runner
 gulp.task('test', 'Run unit test using Karma', (done) => {
   const conf = {
     configFile: KARMA_CONFIG
   };
+
   if (ARGV.browsers) {
     conf.browsers = [...(ARGV.browsers.split(','))]
   }
+
   new KARMA_SERVER(conf, done).start();
 }, {
   options: {
     'browsers=PhantomJS,Chrome,Firefox,IE': 'Choose browser to run unit test'
   }
+});
+
+// Year Update Task
+gulp.task('year:version', 'Updates copyright year and version', () => {
+  return gulp.src(COPYRIGHT_PATHS.src)
+    .pipe(PLUGINS.plumber({
+      errorHandler: Error
+    }))
+    .pipe(PLUGINS.replace(/Copyright \(c\) \d{4}/g, `Copyright (c) ${new Date().getFullYear()}`))
+    .pipe(PLUGINS.replace(/\/\d.\d.\d\//g, `/${pkg.version}/`))
+    .pipe(gulp.dest(COPYRIGHT_PATHS.dest));
 });
 
 // Default Task

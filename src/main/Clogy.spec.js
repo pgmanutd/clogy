@@ -20,7 +20,7 @@ describe('Clogy', function() {
     });
 
     it('should return same instance', function() {
-      // No deep comparing required, we just need to check
+      // No deep comparison required, we just need to check
       // if both points to same memory location
       expect(clogy.noConflict()).to.equal(clogy);
     });

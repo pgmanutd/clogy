@@ -26,15 +26,21 @@ Features
 
 Installation
 ----
-NPM: ```npm install clogy```
+**NPM**
 
-Also available in lib folder
+```npm install clogy```
+
+**CDN**
+
+* Development: ```//cdn.rawgit.com/pgmanutd/clogy/1.0.2/lib/clogy.js```
+* Production: ```//cdn.rawgit.com/pgmanutd/clogy/1.0.2/lib/clogy.min.js```
+
 
 Usage
 ----
-clogy supports AMD (e.g. RequireJS), CommonJS (e.g. Node.js) and direct usage (e.g. loading globally (available as ```clogy```) with a ```<script>``` tag):
+clogy supports AMD (e.g. RequireJS), CommonJS (e.g. NodeJS) and direct usage (e.g. loading globally (available as ```clogy```) with a ```<script>``` tag):
 
-#### CommonsJS (e.g. Node)
+#### CommonsJS (e.g. NodeJS)
 ```
 const clogy = require('clogy');
 clogy.info('Hello World');
@@ -78,7 +84,7 @@ Documentation
     ```
     clogy.options.showDateTime = true;
     clogy.options.prefix = 'Github-';
-    clogy.info('Hello World'); //Wed Jul 27 2016 17:35:54.452: Github- Hello World
+    clogy.info('Hello World'); // Wed Jul 27 2016 17:35:54.452: Github- Hello World
     ```
 * ```LEVELS```: Different log levels (along with values); use them to set current log level
   * ```log```: 1

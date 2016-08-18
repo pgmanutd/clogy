@@ -1,5 +1,9 @@
 # clogy changelog
 
+## 1.0.3
+
+- Added error-handling when logging methods not available
+
 ## 1.0.2
 
 - Fixed version

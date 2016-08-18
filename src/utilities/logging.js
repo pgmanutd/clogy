@@ -9,6 +9,12 @@ export default {
 
 ////////////////////////
 
+function isConsoleDefined() {
+
+  // No need of ===, typeof returns a string
+  return typeof(console) != 'undefined';
+}
+
 function isLogLevelValid(currentLogLevel) {
   return !!(
     currentLogLevel &&
@@ -25,12 +31,6 @@ function isLoggingAllowed(currentLogLevel, loggingType) {
   return (
     LOGGING_LEVELS.types[loggingType] >= currentLogLevel
   );
-}
-
-function isConsoleDefined() {
-
-  // No need of ===, typeof returns a string
-  return typeof(console) != 'undefined';
 }
 
 function getDateTime() {
@@ -50,12 +50,25 @@ function getDateTime() {
 
 function justLogItDude(loggingType, args) {
   const consoleLoggingType = console[loggingType] || console[DEFAULT_LOGGING_TYPE];
+
+  // No need of ===, typeof returns a string
+  if (typeof(consoleLoggingType) != 'function') {
+
+    // I don't want to break an application if someone intentionally
+    // deleted the methods, so skipping error here
+    return;
+  }
+
   Function.prototype.bind.call(consoleLoggingType, console).apply(console, args);
 }
 
 // Functional style programming;
 // No mutating params, no state known beforehand
 function logToConsole(logToConsoleParams, args) {
+  if (!isConsoleDefined()) {
+    return;
+  }
+
   const { currentLogLevel, loggingType, options = {} } = logToConsoleParams;
 
   if (!isLogLevelValid(currentLogLevel)) {
@@ -64,8 +77,8 @@ function logToConsole(logToConsoleParams, args) {
 
   if (
     isNoneLogLevel(currentLogLevel) ||
-    !isConsoleDefined() ||
-    !isLoggingAllowed(currentLogLevel, loggingType)) {
+    !isLoggingAllowed(currentLogLevel, loggingType)
+  ) {
     return;
   }
 

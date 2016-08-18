@@ -10,7 +10,7 @@ describe('getInstance', function() {
 
   beforeEach(function() {
     const Parent = { foo: 'bar' };
-    const Child = function() {};
+    const Child = () => {};
     Child.prototype = Object.create(Parent);
     Child.prototype.constructor = Child;
     const child = new Child();

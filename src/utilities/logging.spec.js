@@ -15,6 +15,7 @@ describe('logToConsole', function() {
     clock.restore();
   });
 
+  // Test Case for undefined console if in "logging" describe block
   it('should throw error for blank log level', function() {
     const logToConsoleParams = {
       currentLogLevel: ''
@@ -64,11 +65,45 @@ describe('logToConsole', function() {
       console.info.restore();
     });
 
+    it('should not log info message if console is not available', function() {
+      const consolePreviousState = console;
+      console = undefined;
+
+      logging.logToConsole();
+
+      console = consolePreviousState;
+
+      expect(console.info).to.not.have.been.called;
+    });
+
     it('should not log info message for "none" log level', function() {
       logging.logToConsole({
         currentLogLevel: 7, // None
         loggingType: 'info'
       }, ['Hello World', 'Everyone']);
+
+      expect(console.info).to.not.have.been.called;
+    });
+
+    it('should not log info message if not allowed', function() {
+      logging.logToConsole({
+        currentLogLevel: 6, // Error
+        loggingType: 'info'
+      }, ['Hello World', 'Everyone']);
+
+      expect(console.info).to.not.have.been.called;
+    });
+
+    it('should not log info message if console is overridden and methods are not available', function() {
+      const consolePreviousState = console;
+      console = {};
+
+      logging.logToConsole({
+        currentLogLevel: 4, // Info
+        loggingType: 'info'
+      }, ['Hello World', 'Everyone']);
+
+      console = consolePreviousState;
 
       expect(console.info).to.not.have.been.called;
     });

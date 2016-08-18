@@ -20,7 +20,7 @@ class Clogy extends Logger {
 
     // No need of ===, typeof returns a string
     if (typeof(decoFunc) != 'function') {
-      throw new TypeError('Decorator handler should be a function');
+      throw new TypeError('Decorator should be a function');
     }
 
     decoFunc(singleton.getInstance(this));

@@ -32,7 +32,7 @@ Installation
 
 **CDN**
 
-* Development: ```//cdn.rawgit.com/pgmanutd/clogy/1.0.4/lib/clogy.js```
+* Development: ```//rawgit.com/pgmanutd/clogy/1.0.4/lib/clogy.js```
 * Production: ```//cdn.rawgit.com/pgmanutd/clogy/1.0.4/lib/clogy.min.js```
 
 

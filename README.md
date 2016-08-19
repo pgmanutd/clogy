@@ -1,4 +1,4 @@
-# clogy [![npm](https://img.shields.io/npm/v/clogy.svg)](https://www.npmjs.com/package/clogy) [![npm](https://img.shields.io/npm/dm/clogy.svg)](https://www.npmjs.com/package/clogy) [![Build Status](https://travis-ci.org/pgmanutd/clogy.svg?branch=master)](https://travis-ci.org/pgmanutd/clogy) [![Coverage Status](https://coveralls.io/repos/github/pgmanutd/clogy/badge.svg?branch=master)](https://coveralls.io/github/pgmanutd/clogy?branch=master)
+# clogy [![npm](https://img.shields.io/npm/v/clogy.svg)](https://www.npmjs.com/package/clogy) [![Build Status](https://travis-ci.org/pgmanutd/clogy.svg?branch=master)](https://travis-ci.org/pgmanutd/clogy) [![Coverage Status](https://coveralls.io/repos/github/pgmanutd/clogy/badge.svg?branch=master)](https://coveralls.io/github/pgmanutd/clogy?branch=master)
 
 A logging library for browsers and nodejs environment. It replaces console's logging functions (such as log, warn, error, info etc) with level-based logging.
 

@@ -55,7 +55,7 @@ function justLogItDude(loggingType, args) {
   if (typeof(consoleLoggingType) != 'function') {
 
     // I don't want to break an application if someone intentionally
-    // deleted the methods, so skipping error here
+    // deleted the logging methods, so skipping error here
     return;
   }
 

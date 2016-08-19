@@ -8,13 +8,17 @@ export default {
 ////////////////////////
 
 function createInstance(originalInstance) {
-  return Object.getPrototypeOf(Object.getPrototypeOf(originalInstance));
+  // Cached lookup once
+  const proto = Object.getPrototypeOf;
+
+  return proto(proto(originalInstance));
 }
 
 function getInstance(originalInstance) {
-  // No need to go deep into proto chain again
+  // No need to go deep into prototype chain again
   if (!instance) {
     instance = createInstance(originalInstance);
   }
+
   return instance;
 }

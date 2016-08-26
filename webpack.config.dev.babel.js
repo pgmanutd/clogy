@@ -12,6 +12,11 @@ export default _.mergeWith({
   debug: true,
   devtool: '#cheap-module-source-map',
   plugins: [
-    new webpack.OldWatchingPlugin() // Temp. solution for windows
+    new webpack.OldWatchingPlugin(), // Temp. solution for windows
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': '"development"'
+      }
+    })
   ]
 }, webpackBaseConfig, customizer);

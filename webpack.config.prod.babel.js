@@ -13,7 +13,12 @@ export default _.mergeWith({
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false // mangle: true by default, mangle.props should be false (default)
-      }                 // Property mangling might break source code
+      } // Property mangling might break source code
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': '"production"'
+      }
     })
   ]
 }, webpackBaseConfig, customizer);

@@ -2,6 +2,7 @@
 
 import pkg from './package';
 import path from 'path';
+import webpack from 'webpack';
 
 const DIRS = pkg.config.dirs;
 
@@ -40,15 +41,6 @@ module.exports = (config) => {
     singleRun: true,
     webpack: {
       module: {
-        preLoaders: [{
-          test: /\.jsx?$/,
-          loader: 'isparta',
-          exclude: [
-            /node_modules/,
-            /\.spec\.js/
-          ],
-          include: path.resolve(__dirname, DIRS.src)
-        }],
         loaders: [{
           test: /\.jsx?$/,
           loader: 'babel',

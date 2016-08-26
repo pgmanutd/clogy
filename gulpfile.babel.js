@@ -22,7 +22,8 @@ const KARMA_SERVER = karma.Server;
 const ARGV = yargs.argv;
 const ENV = {
   dev: 'development',
-  prod: 'production'
+  prod: 'production',
+  test: 'test'
 };
 const DIRS = pkg.config.dirs;
 const JS_PATHS = {
@@ -44,6 +45,10 @@ gulp.task('set-dev-node-env', () => {
 
 gulp.task('set-prod-node-env', () => {
   return process.env.NODE_ENV = ENV.prod;
+});
+
+gulp.task('set-test-node-env', () => {
+  return process.env.NODE_ENV = ENV.test;
 });
 
 // Prints version
@@ -147,7 +152,7 @@ gulp.task('scripts', 'Compiles, Bundles, Minifies JS using Webpack', (callback) 
 });
 
 // Karma Runner
-gulp.task('test', 'Run unit test using Karma', (done) => {
+gulp.task('test', 'Run unit test using Karma', ['set-test-node-env'], (done) => {
   const conf = {
     configFile: KARMA_CONFIG
   };

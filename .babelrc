@@ -1,3 +1,14 @@
 {
-  "presets": ["es2015-loose"]
+  "presets": ["es2015-loose"],
+   "env": {
+    "test": {
+      "plugins": [
+        ["istanbul", {
+          "exclude": [
+            "**/*.spec.js"
+          ]
+        }]
+      ]
+    }
+  }
 }

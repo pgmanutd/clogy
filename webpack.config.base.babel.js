@@ -30,7 +30,7 @@ const webpackBaseConfig = {
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.BannerPlugin(
-      `${pkg.name} - v${pkg.version} * ${pkg.homepage} * (c) ${new Date().getFullYear()} ${pkg.author.name} * licensed ${pkg.licenses[0].type}`
+      `${pkg.name} - v${pkg.version} * ${pkg.homepage} * (c) ${new Date().getFullYear()} ${pkg.author.name} * licensed ${pkg.license}`
     ),
     new webpack.NoErrorsPlugin()
   ],

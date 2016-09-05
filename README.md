@@ -36,7 +36,7 @@ Installation
 
 **CDN**
 
-* Development:
+* ```Development```:
 
 **rawgit**: ```//rawgit.com/pgmanutd/clogy/1.0.5/lib/clogy.js```
 
@@ -44,7 +44,7 @@ or
 
 **npmcdn**: ```//npmcdn.com/clogy@1.0.5/lib/clogy.js```
 
-* Production:
+* ```Production```:
 
 **rawgit**: ```//cdn.rawgit.com/pgmanutd/clogy/1.0.5/lib/clogy.min.js```
 

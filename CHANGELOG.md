@@ -4,8 +4,8 @@
 
 - Added flow type checker
 - Tested supported browsers
-- Added source map for karma webpack
 - Refactoring code
+- Added JSDoc
 
 ## 1.0.4
 

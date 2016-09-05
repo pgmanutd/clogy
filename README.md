@@ -38,13 +38,19 @@ Installation
 
 * Development:
 
-```//rawgit.com/pgmanutd/clogy/1.0.5/lib/clogy.js``` or
-```//npmcdn.com/clogy@1.0.5/lib/clogy.js```
+**rawgit**: ```//rawgit.com/pgmanutd/clogy/1.0.5/lib/clogy.js```
+
+or
+
+**npmcdn**: ```//npmcdn.com/clogy@1.0.5/lib/clogy.js```
 
 * Production:
 
-```//cdn.rawgit.com/pgmanutd/clogy/1.0.5/lib/clogy.min.js``` or
-```//npmcdn.com/clogy@1.0.5/lib/clogy.min.js```
+**rawgit**: ```//cdn.rawgit.com/pgmanutd/clogy/1.0.5/lib/clogy.min.js```
+
+or
+
+**npmcdn**: ```//npmcdn.com/clogy@1.0.5/lib/clogy.min.js```
 
 
 Usage

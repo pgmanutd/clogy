@@ -85,6 +85,7 @@ gulp.task('help', 'Prints commands for help', (done) => {
   console.log(' gulp --type=production            Run in Production mode\n');
   console.log(' gulp eslint                       Run eslint on all js files\n');
   console.log(' gulp eslint --file=src/test.js    Run eslint on js file specified\n');
+  console.log(' gulp flow                         Run flow check on all js files\n');
   console.log(' gulp test                         Run unit test, coverage using');
   console.log('                                   (mocha, chai, sinon),.only for single test\n');
   console.log(' gulp test --browsers=PhantomJS,Chrome,Firefox,IE');
@@ -126,6 +127,21 @@ gulp.task('eslint', 'Run ESLINT on all js files', () => {
   options: {
     'file=src/test.js': 'Run eslint on one file'
   }
+});
+
+// Flow Task
+gulp.task('flow', 'Run flow check on all js files', () => {
+  return gulp.src(JS_PATHS.src)
+    .pipe(PLUGINS.plumber({
+      errorHandler: Error
+    }))
+    .pipe(PLUGINS.flowtype({
+      all: false,
+      weak: false,
+      killFlow: true,
+      beep: true,
+      abort: true
+    }));
 });
 
 // Concatenate and minify all JS files using Webpack
@@ -176,6 +192,7 @@ gulp.task('year:version', 'Updates copyright year and version', () => {
     }))
     .pipe(PLUGINS.replace(/Copyright \(c\) \d{4}/g, `Copyright (c) ${new Date().getFullYear()}`))
     .pipe(PLUGINS.replace(/\/\d.\d.\d\//g, `/${pkg.version}/`))
+    .pipe(PLUGINS.replace(/@\d.\d.\d\//g, `@${pkg.version}/`))
     .pipe(gulp.dest(COPYRIGHT_PATHS.dest));
 });
 

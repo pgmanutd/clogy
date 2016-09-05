@@ -87,6 +87,11 @@ Run eslint on js file specified:
 $ gulp eslint --file=src/test.js
 ```
 
+Run flow check on all js files (having /* @flow */ comment at top of the file) :
+```bash
+$ gulp flow
+```
+
 Run unit tests, coverage using (mocha, chai, sinon), use .only for single test:
 ```bash
 $ gulp test

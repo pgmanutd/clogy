@@ -1,8 +1,7 @@
 'use strict';
 
 import pkg from './package';
-import path from 'path';
-import webpack from 'webpack';
+import { webpackModule } from './webpack.config.base.babel';
 
 const DIRS = pkg.config.dirs;
 
@@ -21,7 +20,8 @@ module.exports = (config) => {
       'karma-firefox-launcher',
       'karma-ie-launcher',
       'karma-webpack',
-      'karma-coverage'
+      'karma-coverage',
+      'karma-sourcemap-loader'
     ],
     files: [
       'node_modules/babel-polyfill/dist/polyfill.js',
@@ -31,7 +31,7 @@ module.exports = (config) => {
     reporters: ['progress', 'coverage'],
     colors: true,
     preprocessors: {
-      [`${DIRS.src}/**/*.spec.js`]: ['webpack']
+      [`${DIRS.src}/**/*.spec.js`]: ['webpack', 'sourcemap']
     },
     coverageReporter: {
       type: 'lcov',
@@ -40,16 +40,8 @@ module.exports = (config) => {
     logLevel: config.LOG_INFO,
     singleRun: true,
     webpack: {
-      module: {
-        loaders: [{
-          test: /\.jsx?$/,
-          loader: 'babel',
-          exclude: /node_modules/,
-          include: [
-            path.resolve(__dirname, DIRS.src)
-          ]
-        }]
-      }
+      module: webpackModule,
+      devtool: 'inline-source-map'
     },
     webpackServer: {
       noInfo: true //please don't spam the console when running in karma!

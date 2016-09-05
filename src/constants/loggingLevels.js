@@ -1,3 +1,5 @@
+/* @flow */
+
 export default {
   get types() {
     return {

@@ -1,5 +1,12 @@
 # clogy changelog
 
+## 1.0.5
+
+- Added flow type checker
+- Tested supported browsers
+- Added source map for karma webpack
+- Refactoring code
+
 ## 1.0.4
 
 - Cached proto chain lookup for better performance

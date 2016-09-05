@@ -18,6 +18,23 @@ function customizer(objValue, srcValue) {
   }
 }
 
+const webpackModule = {
+  loaders: [{
+    loader: 'babel-loader',
+    query: {
+      compact: false
+    },
+    include: [
+      path.resolve(__dirname, DIRS.src)
+    ],
+    exclude: /node_modules/,
+    test: /\.js?$/
+  }],
+  resolve: {
+    extensions: ['', '.js']
+  }
+};
+
 const webpackBaseConfig = {
   entry: {
     [MODULE_NAME]: [path.resolve(__dirname, `${DIRS.src}/index`)]
@@ -34,22 +51,7 @@ const webpackBaseConfig = {
     ),
     new webpack.NoErrorsPlugin()
   ],
-  module: {
-    loaders: [{
-      loader: 'babel-loader',
-      query: {
-        compact: false
-      },
-      include: [
-        path.resolve(__dirname, DIRS.src)
-      ],
-      exclude: /node_modules/,
-      test: /\.js?$/
-    }],
-    resolve: {
-      extensions: ['', '.js']
-    }
-  }
+  module: webpackModule
 };
 
-export { webpackBaseConfig, customizer };
+export { webpackBaseConfig, customizer, webpackModule };

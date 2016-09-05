@@ -1,5 +1,6 @@
 {
   "presets": ["es2015-loose"],
+  "plugins": ["transform-flow-strip-types"],
    "env": {
     "test": {
       "plugins": [

@@ -94,7 +94,7 @@ describe('logToConsole', function() {
       expect(console.info).to.not.have.been.called;
     });
 
-    it('should not log info message if console is overridden and methods are not available', function() {
+    it('should not log info message if methods are not available', function() {
       const consolePreviousState = console;
       console = {};
 

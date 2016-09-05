@@ -1,6 +1,9 @@
 {
   "extends": "eslint:recommended",
   "parser": "babel-eslint",
+  "plugins": [
+    "flowtype"
+  ],
   "env": {
     "es6": true,
     "browser": true,
@@ -17,6 +20,14 @@
     "no-console": 0,
     "quotes": [2, "single"],
     "indent": [2, 2],
-    "linebreak-style": [2, "unix"]
+    "linebreak-style": [2, "unix"],
+    "flowtype/define-flow-type": 1,
+    "flowtype/use-flow-type": 1,
+    "flowtype/valid-syntax": 1
+  },
+  "settings": {
+    "flowtype": {
+      "onlyFilesWithFlowAnnotation": false
+    }
   }
 }

@@ -6,9 +6,9 @@ It creates a wrapper over all the console's logging functions and provide decora
 
 #### Browsers and NodeJS Support (```ES5+```)
 * ```IE9+```: To support IE9 and IE10, Enabled loose mode in babel
-* ```Chrome 5+```
+* ```Chrome 10+```
 * ```Firefox 4+```
-* ```Safari 5+```
+* ```Safari 6+```
 * ```Opera 12+```
 * ```NodeJS 0.5.1+```
 
@@ -16,13 +16,17 @@ Features
 ----
 * Very lightweight (```5KB``` minified)
 * No dependencies
-* ```ES6-7``` Supported
 * Log at a given level (log/trace/debug/info/warn/error) to the console
 * Disable logging at any level (eg. disable all but error in production by setting log level to error)
 * Default log level is ```info```
 * Fallback to ```console.log``` if more specific ones aren't available eg: ```trace``` is not available in ```IE9```
 * Supports all standard JavaScript loading systems (CommonJS, AMD, or global)
 * Extensible (using decorators)
+
+**Tech**
+* ```ES6-7``` Supported
+* ```ESLint and Flow``` Check enabled
+* Testing and Code Coverage using ```Mocha, Sinon, Chai and Istanbul```
 
 Installation
 ----
@@ -32,8 +36,15 @@ Installation
 
 **CDN**
 
-* Development: ```//rawgit.com/pgmanutd/clogy/1.0.4/lib/clogy.js```
-* Production: ```//cdn.rawgit.com/pgmanutd/clogy/1.0.4/lib/clogy.min.js```
+* Development:
+
+```//rawgit.com/pgmanutd/clogy/1.0.5/lib/clogy.js``` or
+```//npmcdn.com/clogy@1.0.5/lib/clogy.js```
+
+* Production:
+
+```//cdn.rawgit.com/pgmanutd/clogy/1.0.5/lib/clogy.min.js``` or
+```//npmcdn.com/clogy@1.0.5/lib/clogy.min.js```
 
 
 Usage

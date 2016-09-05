@@ -1,6 +1,6 @@
 {
   "name": "clogy",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A logging library for browsers and nodejs environment",
   "homepage": "https://github.com/pgmanutd/clogy",
   "author": {

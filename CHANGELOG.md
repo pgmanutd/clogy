@@ -1,5 +1,10 @@
 # clogy changelog
 
+## 1.0.6
+
+- Updated ReadMe
+- Fixed npm publish related issue
+
 ## 1.0.5
 
 - Added flow type checker

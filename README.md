@@ -42,7 +42,7 @@ Installation
 
 or
 
-**npmcdn**: ```//npmcdn.com/clogy@1.0.6/lib/clogy.js```
+**unpkg**: ```//unpkg.com/clogy@1.0.6/lib/clogy.js```
 
 * ```Production```:
 
@@ -50,7 +50,7 @@ or
 
 or
 
-**npmcdn**: ```//npmcdn.com/clogy@1.0.6/lib/clogy.min.js```
+**unpkg**: ```//unpkg.com/clogy@1.0.6/lib/clogy.min.js```
 
 
 Usage

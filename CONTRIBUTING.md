@@ -50,7 +50,7 @@ and create a pull request from github
 ##### Please follow few guidelines before raising a PR
 
 * Write tests and make sure all are passing
-* Check for lint errors
+* Check for lint and flow errors
 * Follow the existing coding style
 * Write a [good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
 
@@ -92,14 +92,14 @@ Run flow check on all js files (having /* @flow */ comment at top of the file) :
 $ gulp flow
 ```
 
-Run unit tests, coverage using (mocha, chai, sinon), use .only for single test:
+Run unit tests, coverage using (mocha, chai, sinon and istanbul), use .only for single test:
 ```bash
 $ gulp test
 ```
 
 Any one or more, default is PhantomJS:
 ```bash
-$ gulp test --browsers=PhantomJS,Chrome,Firefox,IE
+$ gulp test --browsers=PhantomJS,Chrome,Firefox,IE,IE9,IE10
 ```
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)

@@ -83,26 +83,6 @@ Documentation
 
 ### Properties:
 
-* ```options```: Out of box extensions such as:
-  * ```showDateTime```: It will prepend date and time along with ```:```
-    * **Type**: Boolean
-    * **Default**: false
-
-    For example:
-    ```
-    clogy.options.showDateTime = true;
-    clogy.info('Hello World'); // Wed Jul 27 2016 17:35:54.452: Hello World
-    ```
-  * ```prefix```: It will prepend a prefix. It will come after date and time (if enabled)
-    * **Type**: String
-    * **Default**: '' (Emtpy)
-
-    For example:
-    ```
-    clogy.options.showDateTime = true;
-    clogy.options.prefix = 'Github-';
-    clogy.info('Hello World'); // Wed Jul 27 2016 17:35:54.452: Github- Hello World
-    ```
 * ```LEVELS```: Different log levels (along with values); use them to set current log level
   * ```log```: 1
   * ```trace```: 2
@@ -129,6 +109,42 @@ Documentation
   const logger = clogy.noConflict();
   logger.info('Still working');
   ```
+
+* ```setOptions```: (```getOptions()``` not required) Used for setting options (```showDateTime``` and ```prefix```)
+
+  For example:
+  ```
+  clogy.setOptions({
+    showDateTime: true,
+    prefix: 'Github-'
+  });
+  ```
+
+  where,
+
+  * ```showDateTime```: It will prepend date and time along with ```:```
+    * **Type**: Boolean
+    * **Default**: false
+
+    For example:
+    ```
+    clogy.setOptions({
+      showDateTime: true
+    });
+    clogy.info('Hello World'); // Wed Jul 27 2016 17:35:54.452: Hello World
+    ```
+  * ```prefix```: It will prepend a prefix. It will come after date and time (if enabled)
+    * **Type**: String
+    * **Default**: '' (Emtpy)
+
+    For example:
+    ```
+    clogy.setOptions({
+      showDateTime: true,
+      prefix: 'Github-'
+    });
+    clogy.info('Hello World'); // Wed Jul 27 2016 17:35:54.452: Github- Hello World
+    ```
 
 * ```getLevel```: Returns current log level; Default is ```info```
 

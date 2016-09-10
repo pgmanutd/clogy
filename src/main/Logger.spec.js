@@ -1,3 +1,5 @@
+/* TDD style with BDD statements */
+
 import Logger from './Logger';
 import LOGGING_METHODS from '../constants/loggingMethods';
 import logging from '../utilities/logging';
@@ -18,14 +20,27 @@ describe('Loggers', function() {
   });
 
   describe('constructor', function() {
+    it('should initialize default log options', function() {
+      expect(logger._options).to.eql({
+        showDateTime: false,
+        prefix: ''
+      });
+    });
+
     it('should initialize default log level', function() {
       expect(logger.getLevel()).to.equal(4); // Info
     });
+  });
 
-    it('should initialize default log options', function() {
-      expect(logger.options).to.eql({
-        showDateTime: false,
-        prefix: ''
+  describe('set options', function() {
+    it('should set out of the box options', function() {
+      logger.setOptions({
+        showDateTime: true,
+        prefix: 'Prashant'
+      });
+      expect(logger._options).to.eql({
+        showDateTime: true,
+        prefix: 'Prashant'
       });
     });
   });

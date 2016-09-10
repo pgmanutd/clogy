@@ -21,21 +21,40 @@ module.exports = (config) => {
       'karma-ie-launcher',
       'karma-webpack',
       'karma-coverage',
-      'karma-sourcemap-loader'
+      'karma-sourcemap-loader',
+      'karma-spec-reporter'
     ],
     files: [
       'node_modules/babel-polyfill/dist/polyfill.js',
       `${DIRS.src}/**/*.spec.js`
     ],
-    browsers: ['PhantomJS'], // Specify 'PhantomJS', 'Chrome', 'Firefox', 'IE'
-    reporters: ['progress', 'coverage'],
+    browsers: ['PhantomJS'], // Specify 'PhantomJS', 'Chrome', 'Firefox', 'IE', 'IE9', 'IE10'
+    reporters: ['spec', 'coverage'],
     colors: true,
     preprocessors: {
       [`${DIRS.src}/**/*.spec.js`]: ['webpack', 'sourcemap']
     },
+    specReporter: {
+      maxLogLines: 5, // limit number of lines logged per test
+      suppressErrorSummary: true, // do not print error summary
+      suppressFailed: false, // do not print information about failed tests
+      suppressPassed: false, // do not print information about passed tests
+      suppressSkipped: true, // do not print information about skipped tests
+      showSpecTiming: true // print the time elapsed for each spec
+    },
     coverageReporter: {
       type: 'lcov',
       dir: 'coverage'
+    },
+    customLaunchers: {
+      IE9: {
+        base: 'IE',
+        'x-ua-compatible': 'IE=EmulateIE9'
+      },
+      IE10: {
+        base: 'IE',
+        'x-ua-compatible': 'IE=EmulateIE10'
+      }
     },
     logLevel: config.LOG_INFO,
     singleRun: true,

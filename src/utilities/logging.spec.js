@@ -1,3 +1,5 @@
+/* TDD style with BDD statements */
+
 import logging from './logging';
 
 // Passing arrow functions to Mocha is discouraged. Their lexical binding of the
@@ -8,7 +10,7 @@ describe('logToConsole', function() {
   let clock;
 
   beforeEach(function() {
-    clock = sinon.useFakeTimers(new Date(2011, 7, 1).getTime());
+    clock = sinon.useFakeTimers(new Date(2011, 7, 10).getTime());
   });
 
   afterEach(function() {
@@ -153,7 +155,7 @@ describe('logToConsole', function() {
         }
       }, ['Hello World', 'Everyone']);
 
-      expect(console.info).to.have.been.calledWith('Mon Aug 01 2011 00:00:00.000: ', 'Prashant-', 'Hello World', 'Everyone');
+      expect(console.info).to.have.been.calledWith('Wed Aug 10 2011 00:00:00.000: ', 'Prashant-', 'Hello World', 'Everyone');
     });
   });
 });

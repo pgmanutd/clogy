@@ -1,3 +1,5 @@
+/* TDD style with BDD statements */
+
 import Clogy from './Clogy';
 import singleton from '../utilities/singleton';
 

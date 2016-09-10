@@ -45,7 +45,7 @@ function isNoneLogLevel(currentLogLevel: number): boolean {
 }
 
 /**
- * Check if current log level is more than level of current log method thus
+ * Check if current log level is more than level of current log method, thus
  * allowing logging accordingly
  * @param  {Number}  currentLogLevel: Current log level eg. 1, 2, 3, 4
  * @param  {String}  loggingType    : logging method eg. log, info, error, warn
@@ -118,18 +118,29 @@ function justLogItDude(loggingType: string, args: any[]): void {
     return;
   }
 
+  // The console object is not part of any standard and is an extension to the
+  // Document Object Model. Like other DOM objects, it is considered a host
+  // object and is not required to inherit from Object, nor its methods from
+  // Function, like native ECMAScript functions and objects do. This is the
+  // reason apply and call are undefined on those methods. In IE9, most DOM
+  // objects were improved to inherit from native ECMAScript types. As the
+  // developer tools are considered an extension to IE
+  // (albeit, a built-in extension), they clearly didn't receive the same
+  // improvements as the rest of the DOM.
+  // For what it's worth, you can still use some Function.prototype methods
+  // on console methods with a little bind() magic
   Function.prototype.bind.call(consoleLoggingType, console).apply(console, args);
 }
 
 /**
  * Used for logging to console
  * Functional style programming; No mutating params, no state known beforehand
- * @param  {Object} logToConsoleParams: Object containing current log level ,
- *                                      log methods, default options like prefix
- * @param  {any}    args              : any value
+ * @param  {Object} params: Object containing current log level ,
+ *                          log methods, default options like prefix
+ * @param  {any}    args  : any value
  * @return {void | undefined} Returns nothing
  */
-function logToConsole(logToConsoleParams: Object, args: any[]): void {
+function logToConsole(params: Object, args: any[]): void {
   if (!isConsoleDefined()) {
     return;
   }
@@ -137,12 +148,12 @@ function logToConsole(logToConsoleParams: Object, args: any[]): void {
   const {
     currentLogLevel,
     loggingType,
-    options = {}
+    options = {} // Avoiding crash, if someone set options to null or undefined
   }: {
     currentLogLevel: number,
     loggingType: string,
     options: Object
-  } = logToConsoleParams;
+  } = params;
 
   if (!isLogLevelValid(currentLogLevel)) {
     throw new RangeError('Invalid LogLevel set, Please set a valid LogLevel');
@@ -155,5 +166,6 @@ function logToConsole(logToConsoleParams: Object, args: any[]): void {
     return;
   }
 
+  // Open array's arguments (array spread operator)
   justLogItDude(loggingType, [...getConsoleOptions(options), ...args]);
 }

@@ -1,3 +1,5 @@
+/* TDD style with BDD statements */
+
 import singleton from './singleton';
 
 // Passing arrow functions to Mocha is discouraged. Their lexical binding of the

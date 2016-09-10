@@ -1,7 +1,7 @@
 /* @flow */
 
-import LOGGING_LEVELS from '../constants/loggingLevels';
 import LOGGING_DEFAULT_OPTIONS from '../constants/loggingDefaultOptions';
+import LOGGING_LEVELS from '../constants/loggingLevels';
 import LOGGING_METHODS from '../constants/loggingMethods';
 import logging from '../utilities/logging';
 
@@ -10,42 +10,53 @@ import type { LevelsType } from '../globalFlowTypes';
 class Logger {
 
   /**** Flow's annotation syntax ****/
-  _level: ? number;
-  options: {
+  _options: {
     showDateTime: ? boolean,
     prefix: ? string
   };
+  _level: ? number;
   /***********************************/
 
   constructor() {
-    this._level = null;
+    // See it's better to keep these two in state rather than creating a
+    // local variable for them. This way we can keep OOP style along with
+    // functional style programming
 
     // Avoiding Object reshaping
-    this.options = {
+    this._options = {
       showDateTime: null,
       prefix: null
     };
+
+    this._level = null;
 
     this._setDefaults();
   }
 
   /**
-   * Setting default options like prefix, showDateTime
+   * Setting default options like prefix, showDateTime, log level
    * @return {void | undefined} Returns nothing
    */
   _setDefaults(): void {
 
+    // Set default options
+    this.setOptions(LOGGING_DEFAULT_OPTIONS);
+
     // Set default log level
     this.setLevel(LOGGING_LEVELS.types.info);
+  }
 
-    ({
-      // $FlowIssue: suppressing this error until this destructing supported by flow
-      showDateTime: this.options.showDateTime,
-
-      // $FlowIssue: suppressing this error until this destructing supported by flow
-      prefix: this.options.prefix
-
-    } = LOGGING_DEFAULT_OPTIONS);
+  /**
+   * getOptions() not required
+   *
+   * Used for setting options (showDateTime and prefix)
+   * @return {void | undefined} Returns nothing
+   */
+  setOptions(options: Object) {
+    this._options = {
+      ...this._options,
+      ...options
+    };
   }
 
   /**
@@ -58,27 +69,28 @@ class Logger {
 
   /**
    * Used for setting current log level
-   * @param  {number | string} logLevel: log level (number or string)
+   * @param  {number | string} level: log level (number or string)
    * @return {void | undefined} Returns nothing
    * @example:
    * clogy.setLevel(1); // log; number type argument
    * clogy.setLevel(clogy.LEVELS.log); // log; enum type argument
    * clogy.setLevel('log'); // log; string type argument
    */
-  setLevel(logLevel: number | string): void {
-    let _logLevel: number | string = logLevel;
-
-    // No need of ===, typeof returns a string
-    if (typeof(_logLevel) == 'string') {
-      _logLevel = LOGGING_LEVELS.types[_logLevel.toLowerCase()];
-    }
+  setLevel(level: number | string): void {
 
     // No need to check if log level is less or more than min and max or invalid
     // Will be handled when logging
-    this._level = _logLevel;
+    this._level = (typeof(level) == 'string') ? // No need of ===, typeof returns a string
+      LOGGING_LEVELS.types[level.toLowerCase()] :
+      level;
   }
 
   /**
+   * I know this should be static, but I am exposing instance instead of class
+   * If LEVELS are static, may be we can do clogy.__proto__.constructor.LEVELS
+   * or Object.getPrototypeOf(clogy).constructor.LEVELS, but that's not a good
+   * way to access static property
+   *
    * Different log levels (along with values); use them to set current log level
    *  1. 'log': 1
    *  2. 'trace': 2
@@ -117,6 +129,7 @@ class Logger {
 
 ////////////////////////
 
+// Cached prototype once
 const loggerPrototype: Object = Logger.prototype;
 
 /**
@@ -132,7 +145,7 @@ LOGGING_METHODS.forEach((method: string) => {
     const logToConsoleParams = {
       currentLogLevel: this.getLevel(),
       loggingType: method,
-      options: this.options
+      options: this._options
     };
 
     logging.logToConsole(logToConsoleParams, args);

@@ -38,19 +38,19 @@ Installation
 
 * ```Development```:
 
-**rawgit**: ```//rawgit.com/pgmanutd/clogy/1.0.6/lib/clogy.js```
+**rawgit**: ```//rawgit.com/pgmanutd/clogy/1.1.0/lib/clogy.js```
 
 or
 
-**unpkg**: ```//unpkg.com/clogy@1.0.6/lib/clogy.js```
+**unpkg**: ```//unpkg.com/clogy@1.1.0/lib/clogy.js```
 
 * ```Production```:
 
-**rawgit**: ```//cdn.rawgit.com/pgmanutd/clogy/1.0.6/lib/clogy.min.js```
+**rawgit**: ```//cdn.rawgit.com/pgmanutd/clogy/1.1.0/lib/clogy.min.js```
 
 or
 
-**unpkg**: ```//unpkg.com/clogy@1.0.6/lib/clogy.min.js```
+**unpkg**: ```//unpkg.com/clogy@1.1.0/lib/clogy.min.js```
 
 
 Usage
@@ -83,7 +83,7 @@ Documentation
 
 ### Properties:
 
-* ```LEVELS```: Different log levels (along with values); use them to set current log level
+* ```LEVELS```: Different log levels (along with values); use them to set the current log level. Order goes from top to bottom.
   * ```log```: 1
   * ```trace```: 2
   * ```debug```: 3
@@ -92,7 +92,7 @@ Documentation
   * ```error```: 6
   * ```none```: 7 (if current level is none, it won't log anything)
 
-   If current log level is ```info```, then all the levels below ```info``` are valid and rest are invalid. It means ``` clogy.info()```, ```clogy.warn()``` and ```clogy.error()``` will work but ```clogy.log()```, ```clogy.trace()``` and ```clogy.debug()``` won't
+   If current log level is ```info```, then all the levels below ```info``` are valid and rest are invalid. It means ``` clogy.info()```, ```clogy.warn()``` and ```clogy.error()``` will work but ```clogy.log()```, ```clogy.trace()``` and ```clogy.debug()``` won't.
 
    For example:
    ```

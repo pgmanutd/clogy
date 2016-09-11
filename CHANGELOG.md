@@ -1,5 +1,12 @@
 # clogy changelog
 
+## 1.1.0
+
+- Created setOptions method for setting the options (showDateTime & prefix)
+- Removed current way of setting the options
+- Minor refactoring here and there
+- Build related stuff (Karma file refactoring, Created separate files for gulp tasks)
+
 ## 1.0.6
 
 - Updated ReadMe
@@ -11,6 +18,7 @@
 - Tested supported browsers
 - Refactoring code
 - Added JSDoc
+- Build related stuff (Added source map for karma webpack)
 
 ## 1.0.4
 

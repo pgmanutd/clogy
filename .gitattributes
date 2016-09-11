@@ -37,6 +37,7 @@
 *.xml    text
 *.xhtml  text
 *.flow   text
+*.map    text
 
 ## DOCUMENTATION
 *.markdown   text
@@ -81,6 +82,7 @@ TODO         text
 .jshintrc     text
 .jshintignore text
 .stylelintrc  text
+.eslintignore text
 
 ## CONFIGS
 *.bowerrc      text
@@ -97,6 +99,8 @@ TODO         text
 *.yml          text
 Makefile       text
 makefile       text
+.babelrc       text
+.flowconfig    text
 
 ## HEROKU
 Procfile       text

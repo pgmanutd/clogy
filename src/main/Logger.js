@@ -133,6 +133,10 @@ class Logger {
 const loggerPrototype: Object = Logger.prototype;
 
 /**
+ * Array.ForEach is slower than for() in for each for Arrays in JavaScript;
+ * but negligible performance hit here (small loop).
+ * We are also maintaining functional style programming here
+ *
  * Logging methods such as log, info, error, warn etc. Used
  * for logging to console
  * @return {void | undefined} Returns nothing

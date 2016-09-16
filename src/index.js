@@ -13,5 +13,7 @@ export default clogy;
 // Used this soln. instead:
 // http://stackoverflow.com/questions/34736771/webpack-umd-library-return-object-default/34778391#34778391
 //
+// This is intended behaviour from babel@ to babel@6 to support ES6 import export module system
+//
 // $FlowFixMe: suppressing this error until babel changes this style
 module.exports = clogy;

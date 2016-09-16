@@ -10,7 +10,7 @@ describe('getInstance', function() {
   let originalInstance;
   let cachedInstance;
 
-  beforeEach(function() {
+  before(function() {
     const Parent = { foo: 'bar' };
     const Child = () => {};
     Child.prototype = Object.create(Parent);
@@ -26,6 +26,7 @@ describe('getInstance', function() {
   });
 
   it('should return cached instance of parent', function() {
+    // Just compare the same reference
     expect(originalInstance).to.equal(cachedInstance);
   });
 });

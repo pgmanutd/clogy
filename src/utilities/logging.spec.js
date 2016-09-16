@@ -7,15 +7,6 @@ import logging from './logging';
 // this.timeout(1000); will not work inside an arrow function.
 // https://mochajs.org/#arrow-functions
 describe('logToConsole', function() {
-  let clock;
-
-  beforeEach(function() {
-    clock = sinon.useFakeTimers(new Date(2011, 7, 10).getTime());
-  });
-
-  afterEach(function() {
-    clock.restore();
-  });
 
   // Test Case for undefined console if in "logging" describe block
   it('should throw error for blank log level', function() {
@@ -59,12 +50,15 @@ describe('logToConsole', function() {
   });
 
   describe('logging', function() {
+    let sandbox;
+
     beforeEach(function() {
-      sinon.stub(console, 'info');
+      sandbox = sinon.sandbox.create();
+      sandbox.stub(console, 'info');
     });
 
     afterEach(function() {
-      console.info.restore();
+      sandbox.restore();
     });
 
     it('should not log info message if console is not available', function() {
@@ -123,7 +117,7 @@ describe('logToConsole', function() {
       // Suppose warn is not available eg in IE9, fallback to log
       // No need to restore warn as we are not using it again any where
       console.warn = undefined;
-      sinon.stub(console, 'log');
+      sandbox.stub(console, 'log');
 
       logging.logToConsole({
         currentLogLevel: 5, // Warn
@@ -146,6 +140,8 @@ describe('logToConsole', function() {
     });
 
     it('should log info message with date', function() {
+      sandbox.useFakeTimers(new Date(2011, 7, 10).getTime());
+
       logging.logToConsole({
         currentLogLevel: 4, // Info
         loggingType: 'info',

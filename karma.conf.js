@@ -56,7 +56,7 @@ module.exports = (config) => {
         'x-ua-compatible': 'IE=EmulateIE10'
       }
     },
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_ERROR, // console.log, console.error
     singleRun: true,
     webpack: {
       module: webpackModule,

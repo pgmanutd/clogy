@@ -45,8 +45,8 @@ function isNoneLogLevel(currentLogLevel: number): boolean {
 }
 
 /**
- * Check if current log level is more than level of current log method, thus
- * allowing logging accordingly
+ * Check if current log level is less than or equal to the level of current
+ * log method, thus allowing logging accordingly
  * @param  {Number}  currentLogLevel: Current log level eg. 1, 2, 3, 4
  * @param  {String}  loggingType    : logging method eg. log, info, error, warn
  * @return {Boolean} Returns true or false

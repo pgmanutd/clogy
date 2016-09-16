@@ -28,6 +28,11 @@ Features
 * ```ESLint and Flow``` Check enabled
 * Testing and Code Coverage using ```Mocha, Sinon, Chai and Istanbul```
 
+Try clogy online
+----
+* Try it on [runkit](https://runkit.com/npm/clogy)
+* Try it on [codepen](http://codepen.io/pgmanutd/pen/kkbdpo)
+
 Installation
 ----
 **NPM**
@@ -38,19 +43,19 @@ Installation
 
 * ```Development```:
 
-**rawgit**: ```//rawgit.com/pgmanutd/clogy/1.1.0/lib/clogy.js```
+**rawgit**: ```//rawgit.com/pgmanutd/clogy/1.1.1/lib/clogy.js```
 
 or
 
-**unpkg**: ```//unpkg.com/clogy@1.1.0/lib/clogy.js```
+**unpkg**: ```//unpkg.com/clogy@1.1.1/lib/clogy.js```
 
 * ```Production```:
 
-**rawgit**: ```//cdn.rawgit.com/pgmanutd/clogy/1.1.0/lib/clogy.min.js```
+**rawgit**: ```//cdn.rawgit.com/pgmanutd/clogy/1.1.1/lib/clogy.min.js```
 
 or
 
-**unpkg**: ```//unpkg.com/clogy@1.1.0/lib/clogy.min.js```
+**unpkg**: ```//unpkg.com/clogy@1.1.1/lib/clogy.min.js```
 
 
 Usage

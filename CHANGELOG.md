@@ -1,5 +1,12 @@
 # clogy changelog
 
+## 1.1.1
+
+- Fixed npm publish issue (https://github.com/npm/npm/issues/13929)
+- Minor refactoring here and there
+- Added demo to README.md
+- Build related stuff (Updating devDepedencies)
+
 ## 1.1.0
 
 - Created setOptions method for setting the options (showDateTime & prefix)

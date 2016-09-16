@@ -14,7 +14,7 @@ describe('logToConsole', function() {
       currentLogLevel: ''
     };
 
-    expect(logging.logToConsole.bind(null, logToConsoleParams)).to.throw(RangeError);
+    expect(logging.logToConsole.bind(null, logToConsoleParams)).to.throw(RangeError, 'Invalid LogLevel set, Please set a valid LogLevel');
   });
 
   it('should throw error for undefined log level', function() {
@@ -22,7 +22,7 @@ describe('logToConsole', function() {
       currentLogLevel: undefined
     };
 
-    expect(logging.logToConsole.bind(null, logToConsoleParams)).to.throw(RangeError);
+    expect(logging.logToConsole.bind(null, logToConsoleParams)).to.throw(RangeError, 'Invalid LogLevel set, Please set a valid LogLevel');
   });
 
   it('should throw error for null log level', function() {
@@ -30,7 +30,7 @@ describe('logToConsole', function() {
       currentLogLevel: null
     };
 
-    expect(logging.logToConsole.bind(null, logToConsoleParams)).to.throw(RangeError);
+    expect(logging.logToConsole.bind(null, logToConsoleParams)).to.throw(RangeError, 'Invalid LogLevel set, Please set a valid LogLevel');
   });
 
   it('should throw error if current log level is less than min default level', function() {
@@ -38,7 +38,7 @@ describe('logToConsole', function() {
       currentLogLevel: -1 // Min: 1
     };
 
-    expect(logging.logToConsole.bind(null, logToConsoleParams)).to.throw(RangeError);
+    expect(logging.logToConsole.bind(null, logToConsoleParams)).to.throw(RangeError, 'Invalid LogLevel set, Please set a valid LogLevel');
   });
 
   it('should throw error if current log level is more than max default level', function() {
@@ -46,7 +46,7 @@ describe('logToConsole', function() {
       currentLogLevel: 8 // Max: 7
     };
 
-    expect(logging.logToConsole.bind(null, logToConsoleParams)).to.throw(RangeError);
+    expect(logging.logToConsole.bind(null, logToConsoleParams)).to.throw(RangeError, 'Invalid LogLevel set, Please set a valid LogLevel');
   });
 
   describe('logging', function() {

@@ -2,6 +2,7 @@
 
 import Logger from './Logger';
 import LOGGING_METHODS from '../constants/loggingMethods';
+import common from '../utilities/common';
 import logging from '../utilities/logging';
 
 // Passing arrow functions to Mocha is discouraged. Their lexical binding of the
@@ -23,9 +24,7 @@ describe('Logger', function() {
 
   describe('constructor', function() {
     it('should initialize default log options', function() {
-      // I know _options is private, but there is no getOptions()
-      // and we don't need one
-      expect(logger._options).to.eql({
+      expect(logger.getOptions()).to.eql({
         showDateTime: false,
         prefix: ''
       });
@@ -43,9 +42,7 @@ describe('Logger', function() {
         prefix: 'Prashant'
       });
 
-      // I know _options is private, but there is no getOptions()
-      // and we don't need one
-      expect(logger._options).to.eql({
+      expect(logger.getOptions()).to.eql({
         showDateTime: true,
         prefix: 'Prashant'
       });
@@ -80,6 +77,27 @@ describe('Logger', function() {
         error: 6,
         none: 7
       });
+    });
+  });
+
+  describe('stringify allowed loggers', function() {
+    beforeEach(function() {
+      sandbox.stub(common, 'isLoggingAllowed');
+    });
+
+    it('should check for allowed loggers', function() {
+      logger.stringifyAllowedLoggers();
+      expect(common.isLoggingAllowed.callCount).to.equal(6);
+    });
+
+    it('should return allowed loggers', function() {
+      logger.setLevel(4); // Info
+
+      common.isLoggingAllowed.withArgs(sinon.match.number, 'info').returns(true);
+      common.isLoggingAllowed.withArgs(sinon.match.number, 'warn').returns(true);
+      common.isLoggingAllowed.withArgs(sinon.match.number, 'error').returns(true);
+
+      expect(logger.stringifyAllowedLoggers()).to.equal(`1: log ✖\n2: trace ✖\n3: debug ✖\n4: info ✔\n5: warn ✔\n6: error ✔`);
     });
   });
 

@@ -3,6 +3,7 @@
 import LOGGING_DEFAULT_OPTIONS from '../constants/loggingDefaultOptions';
 import LOGGING_LEVELS from '../constants/loggingLevels';
 import LOGGING_METHODS from '../constants/loggingMethods';
+import common from '../utilities/common';
 import logging from '../utilities/logging';
 
 import type { LevelsType } from '../globalFlowTypes';
@@ -43,18 +44,24 @@ class Logger {
     this.setOptions(LOGGING_DEFAULT_OPTIONS);
 
     // Set default log level
-    this.setLevel(LOGGING_LEVELS.types.info);
+    this.setLevel(this.LEVELS.info); // No need to use LOGGING_LEVELS.types.info again here
   }
 
   /**
-   * getOptions() not required
-   *
+   * Used for returning config options
+   * @return {Number | null} Returns config options
+   */
+  getOptions(): Object {
+    return this._options;
+  }
+
+  /**
    * Used for setting options (showDateTime and prefix)
    * @return {void | undefined} Returns nothing
    */
   setOptions(options: Object) {
     this._options = {
-      ...this._options,
+      ...this.getOptions(),
       ...options
     };
   }
@@ -81,7 +88,7 @@ class Logger {
     // No need to check if log level is less or more than min and max or invalid
     // Will be handled when logging
     this._level = (typeof(level) == 'string') ? // No need of ===, typeof returns a string
-      LOGGING_LEVELS.types[level.toLowerCase()] :
+      this.LEVELS[level.toLowerCase()] :
       level;
   }
 
@@ -111,11 +118,32 @@ class Logger {
   }
 
   /**
+   * Get stringifed allowed loggers (Order goes from top to bottom). Use utf-8 encoding for showing tick and cross marks, if not visible.
+   * @return {String} Returns stringifed allowed loggers
+   * @example:
+   * clogy.stringifyAllowedLoggers(); // When current log level is info
+   * =>  1: log ✖
+   *     2: trace ✖
+   *     3: debug ✖
+   *     4: info ✔
+   *     5: warn ✔
+   *     6: error ✔
+   */
+  stringifyAllowedLoggers(): string {
+    const tickMark: string = '\u2714';
+    const crossMark: string = '\u2716';
+
+    return LOGGING_METHODS.map((loggingType: string, index: number) =>
+      `${(index + 1)}: ${loggingType} ${common.isLoggingAllowed(this.getLevel(), loggingType) ? tickMark: crossMark}`
+    ).join('\n');
+  }
+
+  /**
    * Enable all levels; equivalent to 'clogy.setLevel(clogy.LEVELS.log)''
    * @return {void | undefined} Returns nothing
    */
   enableAllLevels(): void {
-    this.setLevel(LOGGING_LEVELS.types.log);
+    this.setLevel(this.LEVELS.log);
   }
 
   /**
@@ -123,7 +151,7 @@ class Logger {
    * @return {void | undefined} Returns nothing
    */
   disableAllLevels(): void {
-    this.setLevel(LOGGING_LEVELS.types.none);
+    this.setLevel(this.LEVELS.none);
   }
 }
 
@@ -145,11 +173,15 @@ LOGGING_METHODS.forEach((method: string) => {
 
   // Not using arrow functions because 'this' will be undefined
   // (Arrow functions capture the this value of the enclosing context)
-  loggerPrototype[method] = function(...args) {
-    const logToConsoleParams = {
+  loggerPrototype[method] = function(...args: any[]) {
+    const logToConsoleParams: {
+      currentLogLevel: number,
+      loggingType: string,
+      options: Object
+    } = {
       currentLogLevel: this.getLevel(),
       loggingType: method,
-      options: this._options
+      options: this.getOptions()
     };
 
     logging.logToConsole(logToConsoleParams, args);

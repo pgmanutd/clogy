@@ -14,7 +14,7 @@ It creates a wrapper over all the console's logging functions and provide decora
 
 Features
 ----
-* Very lightweight (```5KB``` minified)
+* Very lightweight (```~5.5KB``` minified)
 * No dependencies
 * Log at a given level (log/trace/debug/info/warn/error) to the console
 * Disable logging at any level (eg. disable all but error in production by setting log level to error)
@@ -43,19 +43,19 @@ Installation
 
 * ```Development```:
 
-**rawgit**: ```//rawgit.com/pgmanutd/clogy/1.1.1/lib/clogy.js```
+**rawgit**: ```//rawgit.com/pgmanutd/clogy/1.2.0/lib/clogy.js```
 
 or
 
-**unpkg**: ```//unpkg.com/clogy@1.1.1/lib/clogy.js```
+**unpkg**: ```//unpkg.com/clogy@1.2.0/lib/clogy.js```
 
 * ```Production```:
 
-**rawgit**: ```//cdn.rawgit.com/pgmanutd/clogy/1.1.1/lib/clogy.min.js```
+**rawgit**: ```//cdn.rawgit.com/pgmanutd/clogy/1.2.0/lib/clogy.min.js```
 
 or
 
-**unpkg**: ```//unpkg.com/clogy@1.1.1/lib/clogy.min.js```
+**unpkg**: ```//unpkg.com/clogy@1.2.0/lib/clogy.min.js```
 
 
 Usage
@@ -115,19 +115,19 @@ Documentation
   logger.info('Still working');
   ```
 
-* ```setOptions```: (```getOptions()``` not required) Used for setting options (```showDateTime``` and ```prefix```)
+* ```getOptions```: Returns options (```showDateTime``` and ```prefix```). Probably this might not required for normal application; it's provided to let user know the current options (may be when user is extending the logging functionality using decorators).
 
   For example:
   ```
-  clogy.setOptions({
-    showDateTime: true,
-    prefix: 'Github-'
-  });
+  clogy.getOptions(); //{
+                           showDateTime: true,
+                           prefix: 'Github-'
+                        }
   ```
 
   where,
 
-  * ```showDateTime```: It will prepend date and time along with ```:```
+  * ```showDateTime```: It will prepend date and time along with ```:``` and a space. Space is required for ```IE``` where multiple statements are sticked together.
     * **Type**: Boolean
     * **Default**: false
 
@@ -138,7 +138,7 @@ Documentation
     });
     clogy.info('Hello World'); // Wed Jul 27 2016 17:35:54.452: Hello World
     ```
-  * ```prefix```: It will prepend a prefix. It will come after date and time (if enabled)
+  * ```prefix```: It will prepend a prefix. It will come after date and time (if enabled).
     * **Type**: String
     * **Default**: '' (Emtpy)
 
@@ -151,14 +151,24 @@ Documentation
     clogy.info('Hello World'); // Wed Jul 27 2016 17:35:54.452: Github- Hello World
     ```
 
-* ```getLevel```: Returns current log level; Default is ```info```
+* ```setOptions```: Used for setting options (```showDateTime``` and ```prefix```).
+
+  For example:
+  ```
+  clogy.setOptions({
+    showDateTime: true,
+    prefix: 'Github-'
+  });
+  ```
+
+* ```getLevel```: Returns current log level; Default is ```info```. Probably this might not required for normal application; it's provided to let user know the current log level (may be when user is extending the logging functionality using decorators or skipping logging for any level (```clogy.getLevel() === clogy.LEVELS.info ? 'skip : 'proceed'```)).
 
   For example:
   ```
   clogy.getLevel(); // 4 for info and so on
   ```
 
-* ```setLevel```: Set current log level
+* ```setLevel```: Set current log level.
 
   For example:
   ```
@@ -167,14 +177,27 @@ Documentation
   clogy.setLevel('log'); // log; string type argument
   ```
 
-* ```enableAllLevels```: Enable all levels; equivalent to ```clogy.setLevel(clogy.LEVELS.log)```
+* ```stringifyAllowedLoggers```: Get stringifed allowed loggers (Order goes from top to bottom). Use utf-8 encoding for showing tick and cross marks, if not visible.
+
+  For example:
+  ```
+  clogy.stringifyAllowedLoggers(); // When current log level is info
+                                       1: log ✖
+                                       2: trace ✖
+                                       3: debug ✖
+                                       4: info ✔
+                                       5: warn ✔
+                                       6: error ✔
+  ```
+
+* ```enableAllLevels```: Enable all levels; equivalent to ```clogy.setLevel(clogy.LEVELS.log)```.
 
   For example:
   ```
   clogy.enableAllLevels();
   ```
 
-* ```disableAllLevels```: Disable all levels; equivalent to ```clogy.setLevel(clogy.LEVELS.none)```
+* ```disableAllLevels```: Disable all levels; equivalent to ```clogy.setLevel(clogy.LEVELS.none)```.
 
   For example:
   ```
@@ -199,6 +222,7 @@ Documentation
     // Don't use arrow functions here, because they will
     // bind themselves to window or undefined in strict mode
     originalLogger.log = function() {
+      // See, we are just mutating the parameter's property (which is fine in this case) for extending the functionality
 
       // Please don't call clogy.log here, it will create a
       // circular reference and throws
@@ -213,14 +237,14 @@ Documentation
 #### Logging Methods:
 (Default to ```log```, if not available eg: ```trace``` is not available in ```IE9```)
 
-* ```log```: It will print log message
+* ```log```: It will print log message.
 
     For example:
     ```
     clogy.log('Hello World'); // Hello World
     ```
 
-* ```trace```: It will print trace message
+* ```trace```: It will print trace message.
 
     For example:
     ```
@@ -230,28 +254,28 @@ Documentation
                                  p.(anonymous function) @ clogy.min.js:1
                                  (anonymous function)   @ VM188:1
     ```
-* ```debug```: It will print debug message
+* ```debug```: It will print debug message.
 
     For example:
     ```
     clogy.debug('Hello World'); // Hello World
     ```
 
-* ```info```: It will print info message
+* ```info```: It will print info message.
 
     For example:
     ```
     clogy.info('Hello World'); // Hello World
     ```
 
-* ```warn```: It will print warn message
+* ```warn```: It will print warn message.
 
     For example:
     ```
     clogy.warn('Hello World'); // Hello World
     ```
 
-* ```error```: It will print error message
+* ```error```: It will print error message.
 
     For example:
     ```

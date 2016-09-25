@@ -1,6 +1,6 @@
 /* @flow */
 
-import LOGGING_LEVELS from '../constants/loggingLevels';
+import common from './common';
 
 const DEFAULT_LOGGING_TYPE: string = 'log';
 
@@ -10,74 +10,6 @@ export default {
 };
 
 ////////////////////////
-
-/**
- * Check if console is available or not
- * @return {Boolean} Returns true or false
- */
-function isConsoleDefined(): boolean {
-
-  // No need of ===, typeof returns a string
-  return typeof(console) != 'undefined';
-}
-
-/**
- * Check if current log level is valid, less than max
- * and more than min log level
- * @param  {Number}  currentLogLevel: Current log level eg. 1, 2, 3, 4
- * @return {Boolean} Returns true or false
- */
-function isLogLevelValid(currentLogLevel: number): boolean {
-  return !!(
-    currentLogLevel &&
-    currentLogLevel >= LOGGING_LEVELS.range.min &&
-    currentLogLevel <= LOGGING_LEVELS.range.max
-  );
-}
-
-/**
- * Check if current log level is none thus logging is disabled
- * @param  {Number}  currentLogLevel: Current log level eg. 1, 2, 3, 4
- * @return {Boolean} Returns true or false
- */
-function isNoneLogLevel(currentLogLevel: number): boolean {
-  return currentLogLevel === LOGGING_LEVELS.types.none;
-}
-
-/**
- * Check if current log level is less than or equal to the level of current
- * log method, thus allowing logging accordingly
- * @param  {Number}  currentLogLevel: Current log level eg. 1, 2, 3, 4
- * @param  {String}  loggingType    : logging method eg. log, info, error, warn
- * @return {Boolean} Returns true or false
- */
-function isLoggingAllowed(
-  currentLogLevel: number,
-  loggingType: string
-): boolean {
-  return (
-    LOGGING_LEVELS.types[loggingType] >= currentLogLevel
-  );
-}
-
-/**
- * Get current date and time
- * @return {String} Returns date and time in string format
- */
-function getDateTime(): string {
-  const d: Object = new Date();
-  const date: string = d.toDateString();
-
-  // 0 means first matched string, which will be true always unless someone
-  // overrides the result
-  const time: string = d.toTimeString().match(/^([0-9]{2}:[0-9]{2}:[0-9]{2})/)[0];
-
-  // NOTE: hey..!! see, 3 is not a magic number, if you think it is, then
-  // it's just milliseconds in 3 digits (000-999)
-  const appendMilliseconds: string = `00${d.getMilliseconds()}`.slice(-3);
-
-  return `${date} ${time}.${appendMilliseconds}`;
-}
 
 /**
  * Get console options and push them into an array (for logging)
@@ -90,7 +22,7 @@ function getConsoleOptions(options: Object): any[] {
   if (options.showDateTime) {
 
     // Better readability than consoleOptions[consoleOptions.length] = value
-    consoleOptions.push(`${getDateTime()}: `);
+    consoleOptions.push(`${common.getDateTime()}: `);
   }
 
   if (options.prefix) {
@@ -135,17 +67,16 @@ function justLogItDude(loggingType: string, args: any[]): void {
 /**
  * Used for logging to console
  * Functional style programming; No mutating params, no state known beforehand
- * @param  {Object} params: Object containing current log level ,
+ * @param  {
+              currentLogLevel: number,
+              loggingType: string,
+              options: Object
+           }        params: Object containing current log level ,
  *                          log methods, default options like prefix
  * @param  {any}    args  : any value
  * @return {void | undefined} Returns nothing
  */
-function logToConsole(params: Object, args: any[]): void {
-  if (!isConsoleDefined()) {
-    return;
-  }
-
-  const {
+function logToConsole({
     currentLogLevel,
     loggingType,
     options = {} // Avoiding crash, if someone set options to null or undefined
@@ -153,15 +84,20 @@ function logToConsole(params: Object, args: any[]): void {
     currentLogLevel: number,
     loggingType: string,
     options: Object
-  } = params;
+  } = {},
+  args: any[]
+): void {
+  if (!common.isConsoleDefined()) {
+    return;
+  }
 
-  if (!isLogLevelValid(currentLogLevel)) {
+  if (!common.isLogLevelValid(currentLogLevel)) {
     throw new RangeError('Invalid LogLevel set, Please set a valid LogLevel');
   }
 
   if (
-    isNoneLogLevel(currentLogLevel) ||
-    !isLoggingAllowed(currentLogLevel, loggingType)
+    common.isNoneLogLevel(currentLogLevel) ||
+    !common.isLoggingAllowed(currentLogLevel, loggingType)
   ) {
     return;
   }

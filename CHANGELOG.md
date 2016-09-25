@@ -1,5 +1,12 @@
 # clogy changelog
 
+## 1.2.0
+
+- Added 2 new methods (getOptions and stringifyAllowedLoggers)
+- Created separate file (common.js) for reusable methods
+- Minor refactoring here and there
+- Build related stuff (Added few options in webpack)
+
 ## 1.1.1
 
 - Fixed npm publish issue (https://github.com/npm/npm/issues/13929)

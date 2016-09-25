@@ -22,7 +22,8 @@ const webpackModule = {
   loaders: [{
     loader: 'babel-loader',
     query: {
-      compact: false
+      compact: false,
+      cacheDirectory: true
     },
     include: [
       path.resolve(__dirname, DIRS.src)

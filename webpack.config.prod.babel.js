@@ -10,6 +10,7 @@ export default _.mergeWith({
   },
   devtool: '#source-map',
   plugins: [
+    new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false // mangle: true by default, mangle.props should be false (default)

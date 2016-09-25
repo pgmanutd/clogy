@@ -1,157 +1,157 @@
 /* TDD style with BDD statements */
 
 import logging from './logging';
+import common from './common';
 
 // Passing arrow functions to Mocha is discouraged. Their lexical binding of the
 // this value makes them unable to access the Mocha context, and statements like
 // this.timeout(1000); will not work inside an arrow function.
 // https://mochajs.org/#arrow-functions
-describe('logToConsole', function() {
-
-  // Test Case for undefined console if in "logging" describe block
-  it('should throw error for blank log level', function() {
-    const logToConsoleParams = {
-      currentLogLevel: ''
-    };
-
-    expect(logging.logToConsole.bind(null, logToConsoleParams)).to.throw(RangeError, 'Invalid LogLevel set, Please set a valid LogLevel');
-  });
-
-  it('should throw error for undefined log level', function() {
-    const logToConsoleParams = {
-      currentLogLevel: undefined
-    };
-
-    expect(logging.logToConsole.bind(null, logToConsoleParams)).to.throw(RangeError, 'Invalid LogLevel set, Please set a valid LogLevel');
-  });
-
-  it('should throw error for null log level', function() {
-    const logToConsoleParams = {
-      currentLogLevel: null
-    };
-
-    expect(logging.logToConsole.bind(null, logToConsoleParams)).to.throw(RangeError, 'Invalid LogLevel set, Please set a valid LogLevel');
-  });
-
-  it('should throw error if current log level is less than min default level', function() {
-    const logToConsoleParams = {
-      currentLogLevel: -1 // Min: 1
-    };
-
-    expect(logging.logToConsole.bind(null, logToConsoleParams)).to.throw(RangeError, 'Invalid LogLevel set, Please set a valid LogLevel');
-  });
-
-  it('should throw error if current log level is more than max default level', function() {
-    const logToConsoleParams = {
-      currentLogLevel: 8 // Max: 7
-    };
-
-    expect(logging.logToConsole.bind(null, logToConsoleParams)).to.throw(RangeError, 'Invalid LogLevel set, Please set a valid LogLevel');
-  });
-
-  describe('logging', function() {
+describe('logging', function() {
+  describe('logToConsole', function() {
     let sandbox;
 
     beforeEach(function() {
       sandbox = sinon.sandbox.create();
-      sandbox.stub(console, 'info');
+      sandbox.stub(common, 'isConsoleDefined');
+      sandbox.stub(common, 'isLogLevelValid');
+      sandbox.stub(common, 'isNoneLogLevel');
+      sandbox.stub(common, 'isLoggingAllowed');
     });
 
     afterEach(function() {
       sandbox.restore();
     });
 
-    it('should not log info message if console is not available', function() {
-      const consolePreviousState = console;
-      console = undefined;
-
+    it('should check for valid console object', function() {
       logging.logToConsole();
-
-      console = consolePreviousState;
-
-      expect(console.info).to.not.have.been.called;
+      expect(common.isConsoleDefined).to.have.been.called;
     });
 
-    it('should not log info message for "none" log level', function() {
-      logging.logToConsole({
-        currentLogLevel: 7, // None
-        loggingType: 'info'
-      }, ['Hello World', 'Everyone']);
+    it('should check for valid log level', function() {
+      const logToConsoleParams = {
+        currentLogLevel: 4 // Info
+      };
 
-      expect(console.info).to.not.have.been.called;
+      common.isConsoleDefined.returns(true);
+      common.isLogLevelValid.returns(true);
+
+      logging.logToConsole(logToConsoleParams);
+
+      expect(common.isLogLevelValid).to.have.been.calledWith(4); // Info
     });
 
-    it('should not log info message if not allowed', function() {
-      logging.logToConsole({
-        currentLogLevel: 6, // Error
-        loggingType: 'info'
-      }, ['Hello World', 'Everyone']);
+    it('should throw error for invalid log level', function() {
+      const logToConsoleParams = {
+        currentLogLevel: 4 // Info
+      };
 
-      expect(console.info).to.not.have.been.called;
+      common.isConsoleDefined.returns(true);
+      common.isLogLevelValid.returns(false);
+
+      expect(logging.logToConsole.bind(null, logToConsoleParams)).to.throw(RangeError, 'Invalid LogLevel set, Please set a valid LogLevel');
     });
 
-    it('should not log info message if methods are not available', function() {
-      const consolePreviousState = console;
-      console = {};
+    it('should check for "None" log level', function() {
+      const logToConsoleParams = {
+        currentLogLevel: 4 // Info
+      };
 
-      logging.logToConsole({
+      common.isConsoleDefined.returns(true);
+      common.isLogLevelValid.returns(true);
+
+      logging.logToConsole(logToConsoleParams);
+
+      expect(common.isNoneLogLevel).to.have.been.calledWith(4); // Info
+    });
+
+    it('should check if logging is allowed or not', function() {
+      const logToConsoleParams = {
         currentLogLevel: 4, // Info
         loggingType: 'info'
-      }, ['Hello World', 'Everyone']);
+      };
 
-      console = consolePreviousState;
+      common.isConsoleDefined.returns(true);
+      common.isLogLevelValid.returns(true);
+      common.isNoneLogLevel.returns(false);
 
-      expect(console.info).to.not.have.been.called;
+      logging.logToConsole(logToConsoleParams);
+
+      expect(common.isLoggingAllowed).to.have.been.calledWith(4, 'info'); // Info
     });
 
-    it('should log info message', function() {
-      logging.logToConsole({
-        currentLogLevel: 4, // Info
-        loggingType: 'info'
-      }, ['Hello World', 'Everyone']);
+    describe('logging now', function() {
+      beforeEach(function() {
+        common.isConsoleDefined.returns(true);
+        common.isLogLevelValid.returns(true);
+        common.isNoneLogLevel.returns(false);
+        common.isLoggingAllowed.returns(true);
+        sandbox.stub(console, 'info');
+      });
 
-      expect(console.info).to.have.been.calledWith('Hello World', 'Everyone');
-    });
+      it('should not log info message if methods are not available', function() {
+        const consolePreviousState = console;
+        console = {};
 
-    it('should log info message with default logging type i.e. "log"', function() {
-      // Suppose warn is not available eg in IE9, fallback to log
-      // No need to restore warn as we are not using it again any where
-      console.warn = undefined;
-      sandbox.stub(console, 'log');
+        logging.logToConsole({
+          currentLogLevel: 4, // Info
+          loggingType: 'info'
+        }, ['Hello World', 'Everyone']);
 
-      logging.logToConsole({
-        currentLogLevel: 5, // Warn
-        loggingType: 'warn'
-      }, ['Hello World', 'Everyone']);
+        console = consolePreviousState;
 
-      expect(console.log).to.have.been.calledWith('Hello World', 'Everyone');
-    });
+        expect(console.info).to.not.have.been.called;
+      });
 
-    it('should log info message with prefix', function() {
-      logging.logToConsole({
-        currentLogLevel: 4, // Info
-        loggingType: 'info',
-        options: {
-          prefix: 'Prashant-'
-        }
-      }, ['Hello World', 'Everyone']);
+      it('should log info message', function() {
+        logging.logToConsole({
+          currentLogLevel: 4, // Info
+          loggingType: 'info'
+        }, ['Hello World', 'Everyone']);
 
-      expect(console.info).to.have.been.calledWith('Prashant-', 'Hello World', 'Everyone');
-    });
+        expect(console.info).to.have.been.calledWith('Hello World', 'Everyone');
+      });
 
-    it('should log info message with date', function() {
-      sandbox.useFakeTimers(new Date(2011, 7, 10).getTime());
+      it('should log info message with default logging type i.e. "log"', function() {
+        // Suppose warn is not available eg in IE9, fallback to log
+        // No need to restore warn as we are not using it again any where
+        console.warn = undefined;
+        sandbox.stub(console, 'log');
 
-      logging.logToConsole({
-        currentLogLevel: 4, // Info
-        loggingType: 'info',
-        options: {
-          showDateTime: true,
-          prefix: 'Prashant-'
-        }
-      }, ['Hello World', 'Everyone']);
+        logging.logToConsole({
+          currentLogLevel: 5, // Warn
+          loggingType: 'warn'
+        }, ['Hello World', 'Everyone']);
 
-      expect(console.info).to.have.been.calledWith('Wed Aug 10 2011 00:00:00.000: ', 'Prashant-', 'Hello World', 'Everyone');
+        expect(console.log).to.have.been.calledWith('Hello World', 'Everyone');
+      });
+
+      it('should log info message with prefix', function() {
+        logging.logToConsole({
+          currentLogLevel: 4, // Info
+          loggingType: 'info',
+          options: {
+            prefix: 'Prashant-'
+          }
+        }, ['Hello World', 'Everyone']);
+
+        expect(console.info).to.have.been.calledWith('Prashant-', 'Hello World', 'Everyone');
+      });
+
+      it('should log info message with date', function() {
+        sandbox.stub(common, 'getDateTime').returns('Wed Aug 10 2011 00:00:00.000');
+
+        logging.logToConsole({
+          currentLogLevel: 4, // Info
+          loggingType: 'info',
+          options: {
+            showDateTime: true,
+            prefix: 'Prashant-'
+          }
+        }, ['Hello World', 'Everyone']);
+
+        expect(console.info).to.have.been.calledWith('Wed Aug 10 2011 00:00:00.000: ', 'Prashant-', 'Hello World', 'Everyone');
+      });
     });
   });
 });

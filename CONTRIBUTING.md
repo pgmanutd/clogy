@@ -34,7 +34,9 @@ cd clogy
 npm install
 gulp
 ```
-A dist folder will be created (with clogy.js library)
+
+* An in memory folder (equivalent to ```dist``` folder containing clogy.js library and index.html file) will be created.
+* Server will start on port ```3000``` along with webpack-hot-middleware watch. Open ```http://localhost:3000``` from your browser and play with clogy.
 
 When you are done with your changes:
 ```bash
@@ -62,7 +64,7 @@ Show help:
 $ gulp help
 ```
 
-Run in Development mode (with watch):
+Run in Development mode (with webpack-hot-middleware watch):
 ```bash
 $ gulp
 ```

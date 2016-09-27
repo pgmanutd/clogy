@@ -11,11 +11,7 @@ export const PLUGINS = gulpLoadPlugins({
   lazy: false
 });
 export const ARGV = yargs.argv;
-export const ENV = {
-  dev: 'development',
-  prod: 'production',
-  test: 'test'
-};
+export const ENV = pkg.config.env;
 export const DIRS = pkg.config.dirs;
 export const JS_PATHS = {
   src: `${DIRS.src}/**/*.js`,

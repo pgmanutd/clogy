@@ -2,6 +2,7 @@
 
 import webpack from 'webpack';
 import { webpackBaseConfig, customizer } from './webpack.config.base.babel';
+import pkg from './package';
 import _ from 'lodash';
 
 export default _.mergeWith({
@@ -18,7 +19,7 @@ export default _.mergeWith({
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': '"production"'
+        'NODE_ENV': JSON.stringify(pkg.config.env.prod)
       }
     })
   ]

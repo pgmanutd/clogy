@@ -18,6 +18,10 @@ function customizer(objValue, srcValue) {
   }
 }
 
+const resolve = {
+  extensions: ['', '.js']
+};
+
 const webpackModule = {
   loaders: [{
     loader: 'babel-loader',
@@ -30,10 +34,7 @@ const webpackModule = {
     ],
     exclude: /node_modules/,
     test: /\.js?$/
-  }],
-  resolve: {
-    extensions: ['', '.js']
-  }
+  }]
 };
 
 const webpackBaseConfig = {
@@ -52,7 +53,8 @@ const webpackBaseConfig = {
     ),
     new webpack.NoErrorsPlugin()
   ],
-  module: webpackModule
+  module: webpackModule,
+  resolve
 };
 
-export { webpackBaseConfig, customizer, webpackModule };
+export { webpackBaseConfig, webpackModule, resolve, customizer, MODULE_NAME };

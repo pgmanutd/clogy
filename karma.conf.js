@@ -1,7 +1,7 @@
 'use strict';
 
 import pkg from './package';
-import { webpackModule } from './webpack.config.base.babel';
+import webpackTestConfig from './webpack.config.test.babel';
 
 const DIRS = pkg.config.dirs;
 
@@ -58,10 +58,7 @@ module.exports = (config) => {
     },
     logLevel: config.LOG_ERROR, // console.log, console.error
     singleRun: true,
-    webpack: {
-      module: webpackModule,
-      devtool: 'inline-source-map'
-    },
+    webpack: webpackTestConfig,
     webpackServer: {
       noInfo: true //please don't spam the console when running in karma!
     }

@@ -4,7 +4,7 @@ import gulp from 'gulp';
 import requireDir from 'require-dir';
 import runSequence from 'run-sequence';
 import gulpHelp from 'gulp-help';
-import { ENV, IS_PRODUCTION, log } from './gulp-tasks/gulp-config/config';
+import { ENV, IS_PRODUCTION, ARGV, log } from './gulp-tasks/gulp-config/config';
 
 gulpHelp(gulp);
 
@@ -22,12 +22,16 @@ requireDir('./gulp-tasks');
 
 // Default Task
 gulp.task('default', 'Default Task', (done) => {
-  const allTasks = ['clean', 'scripts', 'clean:directories'];
+  const allTasks = ['clean', 'scripts'];
 
   if (IS_PRODUCTION) {
     allTasks.unshift('set-prod-node-env');
   } else {
     allTasks.unshift('set-dev-node-env');
+
+    if (!ARGV.unwatch) {
+      allTasks[allTasks.indexOf('scripts')] = 'forever';
+    }
   }
 
   runSequence(...allTasks, () => {

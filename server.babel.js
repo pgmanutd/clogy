@@ -10,13 +10,13 @@ const { config: { port, dirs: { dest }, env: { prod } } } = pkg;
 
 if (process.env.NODE_ENV === prod) {
   app.use(express.static(`${__dirname}/${dest}`));
+
+  app.get('*', function(req, res) {
+    res.sendFile(`${__dirname}/${dest}/index.html`);
+  });
 } else {
   useWebpackMiddlewareWithWatch(app);
 }
-
-app.get('*', function(req, res) {
-  res.sendFile(`${__dirname}/${dest}/index.html`);
-});
 
 app.listen(port);
 

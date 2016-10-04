@@ -20,6 +20,21 @@ gulp.task('set-prod-node-env', () => {
 
 requireDir('./gulp-tasks');
 
+// Build Task
+gulp.task('build', 'Script building Task', (done) => {
+  const allTasks = ['scripts'];
+
+  if (IS_PRODUCTION) {
+    allTasks.unshift('set-prod-node-env');
+  } else {
+    allTasks.unshift('set-dev-node-env');
+  }
+
+  runSequence(...allTasks, () => {
+    done();
+  });
+});
+
 // Default Task
 gulp.task('default', 'Default Task', (done) => {
   const allTasks = ['clean', 'scripts'];
@@ -35,7 +50,6 @@ gulp.task('default', 'Default Task', (done) => {
   }
 
   runSequence(...allTasks, () => {
-    readyMessage();
     done();
   });
 }, {
@@ -44,11 +58,3 @@ gulp.task('default', 'Default Task', (done) => {
     'type=production': 'Run on production, Default is development'
   }
 });
-
-/////////////////////
-
-function readyMessage() {
-  log('************');
-  log('Ready! Let the hacking begin!');
-  log('************');
-}

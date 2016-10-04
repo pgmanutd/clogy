@@ -15,6 +15,7 @@ if (process.env.NODE_ENV === prod) {
     res.sendFile(`${__dirname}/${dest}/index.html`);
   });
 } else {
+  console.log('\nPlease wait for webpack bundle....\n');
   useWebpackMiddlewareWithWatch(app);
 }
 

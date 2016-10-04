@@ -13,8 +13,10 @@ gulp.task('forever', 'Run Express Server', () => {
   };
 
   PLUGINS.foreverMonitor(pkg.config.main, foreverMonitorOptions)
-    .on('watch:restart', () => {
-      log('Server Restarted! Get a cup of coffee!');
+    .on('start', () => {
+      log('************');
+      log('Server Starting..!!');
+      log('************');
     })
     .on('exit', () => {
       log('Server down!');

@@ -48,7 +48,7 @@
     "flow": "gulp flow",
     "check": "gulp test && gulp eslint && gulp flow",
     "coveralls": "cat ./coverage*/*/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
-    "build": "gulp clean && gulp set-dev-node-env && gulp scripts --unwatch && gulp set-prod-node-env && gulp scripts --type=production && gulp copy",
+    "build": "gulp clean && gulp build && gulp build --type=production && gulp copy",
     "patch": "gulp version:patch && npm run build && gulp year:version && npm publish",
     "minor": "gulp version:minor && npm run build && gulp year:version && npm publish",
     "major": "gulp version:major && npm run build && gulp year:version && npm publish"

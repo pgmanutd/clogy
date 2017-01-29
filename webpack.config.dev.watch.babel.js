@@ -27,7 +27,7 @@ const webpackDevWatchConfig = fp.mergeWith(customizer, {
     }),
     new webpack.HotModuleReplacementPlugin()
   ]
-}, webpackDevConfig, customizer);
+}, webpackDevConfig);
 
 const compiler = webpack(webpackDevWatchConfig);
 

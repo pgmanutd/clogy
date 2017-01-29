@@ -23,4 +23,4 @@ export default fp.mergeWith(customizer, {
       }
     })
   ]
-}, webpackBaseConfig, customizer);
+}, webpackBaseConfig);

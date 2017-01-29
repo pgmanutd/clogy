@@ -55,7 +55,7 @@ function isNoneLogLevel(logLevel: number): boolean {
  */
 function isLoggingAllowed(
   logLevel: ? number,
-  loggingType : string
+  loggingType: string
 ): boolean {
   return (
     LOGGING_LEVELS.types[loggingType] >= logLevel

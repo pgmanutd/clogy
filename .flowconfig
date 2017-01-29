@@ -1,13 +1,12 @@
 [ignore]
-.*/node_modules/.*
 .*/dist/.*
 .*/dest/.*
 .*/logs/.*
-.*/lib/.*
 .*/coverage/.*
 
 [include]
 ./src
+./extensions
 
 [libs]
 

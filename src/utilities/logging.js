@@ -1,6 +1,11 @@
 /* @flow */
 
+import {
+  LOGGING_DEFAULT_OPTIONS
+} from '../constants';
 import common from './common';
+
+import type { ClogyOptionsType } from '../globalFlowTypes';
 
 const DEFAULT_LOGGING_TYPE: string = 'log';
 
@@ -13,10 +18,10 @@ export default {
 
 /**
  * Get console options and push them into an array (for logging)
- * @param  {Object} options: Console options like showDateTime, prefix
- * @return {any[]} Returns an array of console options
+ * @param  {ClogyOptionsType} options: Console options like showDateTime, prefix
+ * @returns {any[]} Returns an array of console options
  */
-function getConsoleOptions(options: Object): any[] {
+function getConsoleOptions(options: ClogyOptionsType): any[] {
   const consoleOptions: any[] = [];
 
   if (options.showDateTime) {
@@ -36,7 +41,7 @@ function getConsoleOptions(options: Object): any[] {
  * Used for logging to console
  * @param  {String} loggingType: logging method eg. log, info, error, warn
  * @param  {any}    args       : any value
- * @return {void | undefined} Returns nothing
+ * @returns {void | undefined} Returns nothing
  */
 function justLogItDude(loggingType: string, args: any[]): void {
   const consoleLoggingType: () => void = console[loggingType] || console[DEFAULT_LOGGING_TYPE];
@@ -70,20 +75,20 @@ function justLogItDude(loggingType: string, args: any[]): void {
  * @param  {
               currentLogLevel: number,
               loggingType: string,
-              options: Object
+              options: ClogyOptionsType
            }        params: Object containing current log level ,
  *                          log methods, default options like prefix
  * @param  {any}    args  : any value
- * @return {void | undefined} Returns nothing
+ * @returns {void | undefined} Returns nothing
  */
 function logToConsole({
     currentLogLevel,
     loggingType,
-    options = {} // Avoiding crash, if someone set options to null or undefined
+    options = LOGGING_DEFAULT_OPTIONS // Avoiding crash, if someone set options to null or undefined
   }: {
     currentLogLevel: number,
     loggingType: string,
-    options: Object
+    options: ClogyOptionsType
   } = {},
   args: any[]
 ): void {

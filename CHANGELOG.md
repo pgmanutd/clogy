@@ -1,5 +1,14 @@
 # clogy changelog
 
+## 1.3.0
+
+- Added Object.freeze and did minor refactoring
+- Created barrel file for importing and exporting
+- Upgraded various packages and removed obsolete one's
+- Added lodash-fp
+- Major fixes in flowjs; removed gulp-flowtype
+- Added new "extensions" directory for extending clogy's functionality
+
 ## 1.2.0
 
 - Added 2 new methods (getOptions and stringifyAllowedLoggers)

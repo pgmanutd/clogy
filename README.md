@@ -14,7 +14,7 @@ It creates a wrapper over all the console's logging functions and provide decora
 
 Features
 ----
-* Very lightweight (```~5.5KB``` minified)
+* Very lightweight (```~5.8KB``` minified)
 * No dependencies
 * Log at a given level (log/trace/debug/info/warn/error) to the console
 * Disable logging at any level (eg. disable all but error in production by setting log level to error)
@@ -27,6 +27,7 @@ Features
 * ```ES6-7``` Supported
 * ```ESLint and Flow``` Check enabled
 * Testing and Code Coverage using ```Mocha, Sinon, Chai and Istanbul```
+* Extend clogy using extensions. Sample extension (```logger-with-metadata```) is present in [extensions](https://github.com/pgmanutd/clogy/blob/master/extensions) directory. Check out its [Read Me](https://github.com/pgmanutd/clogy/blob/master/extensions/README.md)!
 
 Try clogy online
 ----
@@ -43,19 +44,19 @@ Installation
 
 * ```Development```:
 
-**rawgit**: ```//rawgit.com/pgmanutd/clogy/1.2.0/lib/clogy.js```
+**rawgit**: ```//rawgit.com/pgmanutd/clogy/1.3.0/lib/clogy.js```
 
 or
 
-**unpkg**: ```//unpkg.com/clogy@1.2.0/lib/clogy.js```
+**unpkg**: ```//unpkg.com/clogy@1.3.0/lib/clogy.js```
 
 * ```Production```:
 
-**rawgit**: ```//cdn.rawgit.com/pgmanutd/clogy/1.2.0/lib/clogy.min.js```
+**rawgit**: ```//cdn.rawgit.com/pgmanutd/clogy/1.3.0/lib/clogy.min.js```
 
 or
 
-**unpkg**: ```//unpkg.com/clogy@1.2.0/lib/clogy.min.js```
+**unpkg**: ```//unpkg.com/clogy@1.3.0/lib/clogy.min.js```
 
 
 Usage
@@ -296,7 +297,7 @@ Changelog
 
 License
 ----
-Copyright (c) 2016 pgmanutd
+Copyright (c) 2017 pgmanutd
 
 Licensed under the MIT license
 

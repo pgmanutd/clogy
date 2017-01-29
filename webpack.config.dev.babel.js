@@ -3,9 +3,9 @@
 import webpack from 'webpack';
 import { webpackBaseConfig, customizer } from './webpack.config.base.babel';
 import pkg from './package';
-import _ from 'lodash';
+import * as fp from 'lodash/fp';
 
-export default _.mergeWith({
+export default fp.mergeWith(customizer, {
   output: {
     filename: '[name].js'
   },
@@ -19,4 +19,4 @@ export default _.mergeWith({
       }
     })
   ]
-}, webpackBaseConfig, customizer);
+}, webpackBaseConfig);

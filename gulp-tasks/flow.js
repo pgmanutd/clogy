@@ -1,19 +1,23 @@
 'use strict';
 
 import gulp from 'gulp';
-import { PLUGINS, JS_PATHS, errorHandler } from './gulp-config/config';
+import child_process from 'child_process';
+import flow from 'flow-bin';
+
+import { PLUGINS } from './gulp-config/config';
+
+const execFile = child_process.execFile;
 
 // Flow Task
-gulp.task('flow', 'Run flow check on all js files', () => {
-  return gulp.src(JS_PATHS.src)
-    .pipe(PLUGINS.plumber({
-      errorHandler
-    }))
-    .pipe(PLUGINS.flowtype({
-      all: false,
-      weak: false,
-      killFlow: true,
-      beep: true,
-      abort: true
-    }));
+gulp.task('flow', 'Run flow check on all js files', (done) => {
+  execFile(flow, ['check'], (err, stdout) => {
+    if (err) {
+      throw new PLUGINS.util.PluginError({
+        plugin: '[flow]',
+        message: stdout
+      });
+    }
+
+    done();
+  });
 });

@@ -1,6 +1,6 @@
 /* @flow */
 
-export default {
+export default Object.freeze({
   get types() {
     return {
       log: 1,
@@ -18,4 +18,4 @@ export default {
       max: this.types.none
     };
   }
-};
+});

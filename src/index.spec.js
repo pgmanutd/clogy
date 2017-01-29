@@ -1,3 +1,5 @@
+/* TDD style with BDD statements */
+
 import Clogy from './main/Clogy';
 import clogy from './index';
 

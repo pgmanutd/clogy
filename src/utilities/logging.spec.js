@@ -13,6 +13,7 @@ describe('logging', function() {
 
     beforeEach(function() {
       sandbox = sinon.sandbox.create();
+
       sandbox.stub(common, 'isConsoleDefined');
       sandbox.stub(common, 'isLogLevelValid');
       sandbox.stub(common, 'isNoneLogLevel');
@@ -25,6 +26,7 @@ describe('logging', function() {
 
     it('should check for valid console object', function() {
       logging.logToConsole();
+
       expect(common.isConsoleDefined).to.have.been.called;
     });
 
@@ -86,6 +88,7 @@ describe('logging', function() {
         common.isLogLevelValid.returns(true);
         common.isNoneLogLevel.returns(false);
         common.isLoggingAllowed.returns(true);
+
         sandbox.stub(console, 'info');
       });
 
@@ -116,6 +119,7 @@ describe('logging', function() {
         // Suppose warn is not available eg in IE9, fallback to log
         // No need to restore warn as we are not using it again any where
         console.warn = undefined;
+
         sandbox.stub(console, 'log');
 
         logging.logToConsole({

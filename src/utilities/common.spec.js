@@ -20,11 +20,13 @@ describe('common', function() {
 
     it('should return true if console is present', function() {
       console = { log: () => {} };
+
       expect(common.isConsoleDefined()).to.be.true;
     });
 
     it('should return false if console is not present', function() {
       console = undefined;
+
       expect(common.isConsoleDefined()).to.be.false;
     });
   });
@@ -88,6 +90,7 @@ describe('common', function() {
 
     it('should return current date and time', function() {
       sandbox.useFakeTimers(new Date(2011, 7, 10).getTime());
+
       expect(common.getDateTime()).to.equal('Wed Aug 10 2011 00:00:00.000');
     });
   });

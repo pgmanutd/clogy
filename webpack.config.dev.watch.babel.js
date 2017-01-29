@@ -6,9 +6,9 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { customizer, MODULE_NAME } from './webpack.config.base.babel';
 import webpackDevConfig from './webpack.config.dev.babel';
-import _ from 'lodash';
+import * as fp from 'lodash/fp';
 
-const webpackDevWatchConfig = _.mergeWith({
+const webpackDevWatchConfig = fp.mergeWith(customizer, {
   entry: {
     [MODULE_NAME]: [
       'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',

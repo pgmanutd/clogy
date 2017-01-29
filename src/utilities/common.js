@@ -1,4 +1,6 @@
-import LOGGING_LEVELS from '../constants/loggingLevels';
+/* @flow */
+
+import { LOGGING_LEVELS } from '../constants';
 
 // I prefer default export rather than named export
 export default {
@@ -13,7 +15,7 @@ export default {
 
 /**
  * Check if console is available or not
- * @return {Boolean} Returns true or false
+ * @returns {Boolean} Returns true or false
  */
 function isConsoleDefined(): boolean {
 
@@ -25,7 +27,7 @@ function isConsoleDefined(): boolean {
  * Check if current log level is valid, less than max
  * and more than min log level
  * @param  {Number}  logLevel: Current log level eg. 1, 2, 3, 4
- * @return {Boolean} Returns true or false
+ * @returns {Boolean} Returns true or false
  */
 function isLogLevelValid(logLevel: number): boolean {
   return !!(
@@ -38,7 +40,7 @@ function isLogLevelValid(logLevel: number): boolean {
 /**
  * Check if current log level is none thus logging is disabled
  * @param  {Number}  logLevel: Current log level eg. 1, 2, 3, 4
- * @return {Boolean} Returns true or false
+ * @returns {Boolean} Returns true or false
  */
 function isNoneLogLevel(logLevel: number): boolean {
   return logLevel === LOGGING_LEVELS.types.none;
@@ -49,11 +51,11 @@ function isNoneLogLevel(logLevel: number): boolean {
  * current log level, thus allowing logging accordingly
  * @param  {Number}  logLevel: Current log level eg. 1, 2, 3, 4
  * @param  {String}  loggingType    : logging method eg. log, info, error, warn
- * @return {Boolean} Returns true or false
+ * @returns {Boolean} Returns true or false
  */
 function isLoggingAllowed(
-  logLevel: number,
-  loggingType: string
+  logLevel: ? number,
+  loggingType : string
 ): boolean {
   return (
     LOGGING_LEVELS.types[loggingType] >= logLevel
@@ -62,15 +64,15 @@ function isLoggingAllowed(
 
 /**
  * Get current date and time
- * @return {String} Returns date and time in string format
+ * @returns {String} Returns date and time in string format
  */
 function getDateTime(): string {
-  const d: Object = new Date();
+  const d: Date = new Date();
   const date: string = d.toDateString();
 
-  // 0 means first matched string, which will be true always unless someone
-  // overrides the result
-  const time: string = d.toTimeString().match(/^([0-9]{2}:[0-9]{2}:[0-9]{2})/)[0];
+  const customTimeFormat: ? string[] = d.toTimeString().match(/^([0-9]{2}:[0-9]{2}:[0-9]{2})/);
+
+  const time: string = (customTimeFormat && customTimeFormat.length) ? customTimeFormat[0] : '';
 
   // NOTE: hey..!! see, 3 is not a magic number, if you think it is, then
   // it's just milliseconds in 3 digits (000-999)

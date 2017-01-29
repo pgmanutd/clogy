@@ -16,7 +16,8 @@ export const DIRS = pkg.config.dirs;
 export const JS_PATHS = {
   src: `${DIRS.src}/**/*.js`,
   libSrc: `${DIRS.dest}/**/*`,
-  dest: `${DIRS.dest}`
+  dest: `${DIRS.dest}`,
+  extensions: `${DIRS.extensions}/**/*.js`,
 };
 export const IS_PRODUCTION = ARGV.type === ENV.prod;
 

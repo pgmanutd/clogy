@@ -14,8 +14,10 @@ describe('singleton', function() {
     before(function() {
       const Parent = { foo: 'bar' };
       const Child = () => {};
+
       Child.prototype = Object.create(Parent);
       Child.prototype.constructor = Child;
+
       const child = new Child();
 
       originalInstance = singleton.getInstance(child);
@@ -27,6 +29,7 @@ describe('singleton', function() {
     });
 
     it('should return cached instance of parent', function() {
+
       // Just compare the same reference
       expect(originalInstance).to.equal(cachedInstance);
     });

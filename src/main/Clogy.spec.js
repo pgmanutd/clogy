@@ -1,7 +1,7 @@
 /* TDD style with BDD statements */
 
 import Clogy from './Clogy';
-import singleton from '../utilities/singleton';
+import { singleton } from '../utilities';
 
 // Passing arrow functions to Mocha is discouraged. Their lexical binding of the
 // this value makes them unable to access the Mocha context, and statements like
@@ -17,11 +17,14 @@ describe('Clogy', function() {
   describe('noConflict', function() {
     it('should remove clogy instance from window', function() {
       window.clogy = clogy;
+
       clogy.noConflict();
+
       expect(window.clogy).to.be.undefined;
     });
 
     it('should return same instance', function() {
+
       // No deep comparison required, we just need to check
       // if both are same reference
       expect(clogy.noConflict()).to.equal(clogy);

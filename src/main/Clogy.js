@@ -1,6 +1,6 @@
 /* @flow */
 
-import singleton from '../utilities/singleton';
+import { singleton } from '../utilities';
 import Logger from './Logger';
 
 class Clogy extends Logger {
@@ -11,7 +11,7 @@ class Clogy extends Logger {
    * conflicts, you need to put clogy in no-conflict mode immediately after it
    * is loaded onto the page and before you attempt to use clogy in your page.
    * It works similar to jQuery's no-conflict mode
-   * @return {clogy} Returns current instance i.e. clogy
+   * @returns {clogy} Returns current instance i.e. clogy
    */
   noConflict(): this {
 
@@ -35,7 +35,7 @@ class Clogy extends Logger {
    * 4. Showing toast messages
    * @param  {Function} decoFunc: A decorator callback for extending logging
    *                               functionality
-   * @return {void | undefined} Returns nothing
+   * @returns {void | undefined} Returns nothing
    */
   decorator(decoFunc: () => void): void {
 

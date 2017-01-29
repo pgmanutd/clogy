@@ -5,7 +5,7 @@ import { PLUGINS, ARGV, JS_PATHS, errorHandler } from './gulp-config/config';
 
 // Lint Task
 gulp.task('eslint', 'Run ESLINT on all js files', () => {
-  const file = ARGV.file || JS_PATHS.src;
+  const file = ARGV.file || [JS_PATHS.src, JS_PATHS.extensions];
 
   return gulp.src(file)
     .pipe(PLUGINS.plumber({

@@ -1,6 +1,6 @@
 /* @flow */
 
-export default {
+export default Object.freeze({
   showDateTime: false,
   prefix: ''
-};
+});

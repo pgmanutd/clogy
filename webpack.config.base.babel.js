@@ -3,7 +3,7 @@
 import webpack from 'webpack';
 import path from 'path';
 import pkg from './package';
-import _ from 'lodash';
+import * as fp from 'lodash/fp';
 
 const {
   name: MODULE_NAME,
@@ -13,7 +13,7 @@ const {
 } = pkg;
 
 function customizer(objValue, srcValue) {
-  if (_.isArray(objValue)) {
+  if (fp.isArray(objValue)) {
     return objValue.concat(srcValue);
   }
 }
@@ -30,7 +30,8 @@ const webpackModule = {
       cacheDirectory: true
     },
     include: [
-      path.resolve(__dirname, DIRS.src)
+      path.resolve(__dirname, DIRS.src),
+      path.resolve(__dirname, DIRS.extensions)
     ],
     exclude: /node_modules/,
     test: /\.js?$/

@@ -26,13 +26,15 @@ module.exports = (config) => {
     ],
     files: [
       'node_modules/babel-polyfill/dist/polyfill.js',
-      `${DIRS.src}/**/*.spec.js`
+      `${DIRS.src}/**/*.spec.js`,
+      `${DIRS.extensions}/**/*.spec.js`
     ],
     browsers: ['PhantomJS'], // Specify 'PhantomJS', 'Chrome', 'Firefox', 'IE', 'IE9', 'IE10'
     reporters: ['spec', 'coverage'],
     colors: true,
     preprocessors: {
-      [`${DIRS.src}/**/*.spec.js`]: ['webpack', 'sourcemap']
+      [`${DIRS.src}/**/*.spec.js`]: ['webpack', 'sourcemap'],
+      [`${DIRS.extensions}/**/*.spec.js`]: ['webpack', 'sourcemap']
     },
     specReporter: {
       maxLogLines: 5, // limit number of lines logged per test

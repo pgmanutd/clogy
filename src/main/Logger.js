@@ -1,24 +1,24 @@
 /* @flow */
 
-import LOGGING_DEFAULT_OPTIONS from '../constants/loggingDefaultOptions';
-import LOGGING_LEVELS from '../constants/loggingLevels';
-import LOGGING_METHODS from '../constants/loggingMethods';
-import common from '../utilities/common';
-import logging from '../utilities/logging';
+import {
+  LOGGING_DEFAULT_OPTIONS,
+  LOGGING_LEVELS,
+  LOGGING_METHODS
+} from '../constants';
+import { common, logging } from '../utilities';
 
-import type { LevelsType } from '../globalFlowTypes';
+import type { LevelsType, ClogyOptionsType } from '../globalFlowTypes';
 
 class Logger {
 
   /**** Flow's annotation syntax ****/
-  _options: {
-    showDateTime: ? boolean,
-    prefix: ? string
-  };
+  _options: ClogyOptionsType;
+
   _level: ? number;
   /***********************************/
 
   constructor() {
+
     // See it's better to keep these two in state rather than creating a
     // local variable for them. This way we can keep OOP style along with
     // functional style programming
@@ -36,7 +36,7 @@ class Logger {
 
   /**
    * Setting default options like prefix, showDateTime, log level
-   * @return {void | undefined} Returns nothing
+   * @returns {void | undefined} Returns nothing
    */
   _setDefaults(): void {
 
@@ -49,17 +49,18 @@ class Logger {
 
   /**
    * Used for returning config options
-   * @return {Number | null} Returns config options
+   * @returns {ClogyOptionsType | null} Returns config options
    */
-  getOptions(): Object {
+  getOptions(): ClogyOptionsType {
     return this._options;
   }
 
   /**
    * Used for setting options (showDateTime and prefix)
-   * @return {void | undefined} Returns nothing
+   * @param  {ClogyOptionsType} options: Console options like showDateTime, prefix
+   * @returns {void | undefined} Returns nothing
    */
-  setOptions(options: Object) {
+  setOptions(options: ClogyOptionsType) {
     this._options = {
       ...this.getOptions(),
       ...options
@@ -68,7 +69,7 @@ class Logger {
 
   /**
    * Used for returning current log level; Default is info
-   * @return {Number | null} Returns current log level
+   * @returns {Number | null} Returns current log level
    */
   getLevel(): ? number {
     return this._level;
@@ -77,7 +78,7 @@ class Logger {
   /**
    * Used for setting current log level
    * @param  {number | string} level: log level (number or string)
-   * @return {void | undefined} Returns nothing
+   * @returns {void | undefined} Returns nothing
    * @example:
    * clogy.setLevel(1); // log; number type argument
    * clogy.setLevel(clogy.LEVELS.log); // log; enum type argument
@@ -111,7 +112,7 @@ class Logger {
    * and rest are invalid. It means ' clogy.info()', 'clogy.warn()' and
    * 'clogy.error()' will work but 'clogy.log()', 'clogy.trace()' and
    * 'clogy.debug()' won't
-   * @return {LevelsType} Returns all log levels
+   * @returns {LevelsType} Returns all log levels
    */
   get LEVELS(): LevelsType {
     return LOGGING_LEVELS.types;
@@ -119,7 +120,7 @@ class Logger {
 
   /**
    * Get stringifed allowed loggers (Order goes from top to bottom). Use utf-8 encoding for showing tick and cross marks, if not visible.
-   * @return {String} Returns stringifed allowed loggers
+   * @returns {String} Returns stringifed allowed loggers
    * @example:
    * clogy.stringifyAllowedLoggers(); // When current log level is info
    * =>  1: log ✖
@@ -140,7 +141,7 @@ class Logger {
 
   /**
    * Enable all levels; equivalent to 'clogy.setLevel(clogy.LEVELS.log)''
-   * @return {void | undefined} Returns nothing
+   * @returns {void | undefined} Returns nothing
    */
   enableAllLevels(): void {
     this.setLevel(this.LEVELS.log);
@@ -148,7 +149,7 @@ class Logger {
 
   /**
    * Disable all levels; equivalent to 'clogy.setLevel(clogy.LEVELS.none)''
-   * @return {void | undefined} Returns nothing
+   * @returns {void | undefined} Returns nothing
    */
   disableAllLevels(): void {
     this.setLevel(this.LEVELS.none);
@@ -167,7 +168,7 @@ const loggerPrototype: Object = Logger.prototype;
  *
  * Logging methods such as log, info, error, warn etc. Used
  * for logging to console
- * @return {void | undefined} Returns nothing
+ * @returns {void | undefined} Returns nothing
  */
 LOGGING_METHODS.forEach((method: string) => {
 
@@ -177,7 +178,7 @@ LOGGING_METHODS.forEach((method: string) => {
     const logToConsoleParams: {
       currentLogLevel: number,
       loggingType: string,
-      options: Object
+      options: ClogyOptionsType
     } = {
       currentLogLevel: this.getLevel(),
       loggingType: method,

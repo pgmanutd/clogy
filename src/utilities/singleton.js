@@ -14,7 +14,7 @@ export default {
 /**
  * Creates new instance from Clogy's parent i.e. Logger (a copy of parent)
  * @param  {ClogyType} originalInstance: clogy's instance
- * @return {ClogyType} Returns a copy of parent
+ * @returns {ClogyType} Returns a copy of parent
  */
 function createInstance(originalInstance: ClogyType): Object {
   // Cached lookup once
@@ -26,7 +26,7 @@ function createInstance(originalInstance: ClogyType): Object {
 /**
  * Get cached instance
  * @param  {ClogyType} originalInstance: clogy's instance
- * @return {ClogyType} Returns a copy of parent (cached)
+ * @returns {ClogyType} Returns a copy of parent (cached)
  */
 function getInstance(originalInstance: ClogyType): Object {
   // No need to go deep into prototype chain again

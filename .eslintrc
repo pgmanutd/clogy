@@ -1,8 +1,9 @@
 {
-  "extends": "eslint:recommended",
+  "extends": ["eslint:recommended", "plugin:lodash-fp/recommended"],
   "parser": "babel-eslint",
   "plugins": [
-    "flowtype"
+    "flowtype",
+    "lodash-fp"
   ],
   "env": {
     "es6": true,

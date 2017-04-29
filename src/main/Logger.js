@@ -60,7 +60,7 @@ class Logger {
    * @param  {ClogyOptionsType} options: Console options like showDateTime, prefix
    * @returns {void | undefined} Returns nothing
    */
-  setOptions(options: ClogyOptionsType) {
+  setOptions(options: ClogyOptionsType): void {
     this._options = {
       ...this.getOptions(),
       ...options

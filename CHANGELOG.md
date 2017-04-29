@@ -1,5 +1,10 @@
 # clogy changelog
 
+## 1.3.1
+
+- Added typescript declaration file
+- Added yarn.lock file
+
 ## 1.3.0
 
 - Added Object.freeze and did minor refactoring

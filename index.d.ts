@@ -1,7 +1,6 @@
 // Type definitions for clogy
 // Project: https://github.com/pgmanutd/clogy
 // Definitions by: Prashant Goel <https://github.com/pgmanutd>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type ClogyOptionsT = {
   showDateTime?: boolean,
@@ -9,13 +8,13 @@ type ClogyOptionsT = {
 };
 
 type ClogyLevelsT = {
-  log: number,
-  trace: number,
-  debug: number,
-  info: number,
-  warn: number,
-  error: number,
-  none: number
+  readonly log: number,
+  readonly trace: number,
+  readonly debug: number,
+  readonly info: number,
+  readonly warn: number,
+  readonly error: number,
+  readonly none: number
 };
 
 interface IClogyLogger {
@@ -26,7 +25,7 @@ interface IClogyLogger {
   stringifyAllowedLoggers(): string;
   enableAllLevels(): void;
   disableAllLevels(): void;
-  LEVELS: ClogyLevelsT;
+  readonly LEVELS: ClogyLevelsT;
   log(...args: Array<any>): void;
   trace(...args: Array<any>): void;
   debug(...args: Array<any>): void;

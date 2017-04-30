@@ -1,5 +1,9 @@
 # clogy changelog
 
+## 1.3.3
+
+- Added readonly attribute for clogy levels in typescript declaration file
+
 ## 1.3.2
 
 - Refactored index.d.ts

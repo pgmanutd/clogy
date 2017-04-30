@@ -3,12 +3,12 @@
 // Definitions by: Prashant Goel <https://github.com/pgmanutd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare type ClogyOptionsType = {
+type ClogyOptionsT = {
   showDateTime?: boolean,
   prefix?: string
 };
 
-declare type LevelsType = {
+type ClogyLevelsT = {
   log: number,
   trace: number,
   debug: number,
@@ -18,15 +18,15 @@ declare type LevelsType = {
   none: number
 };
 
-interface ILogger {
-  getOptions(): ClogyOptionsType;
-  setOptions(options: ClogyOptionsType): void;
+interface IClogyLogger {
+  getOptions(): ClogyOptionsT;
+  setOptions(options: ClogyOptionsT): void;
   getLevel(): number | null;
   setLevel(level: number | string): void;
   stringifyAllowedLoggers(): string;
   enableAllLevels(): void;
   disableAllLevels(): void;
-  LEVELS: LevelsType;
+  LEVELS: ClogyLevelsT;
   log(...args: Array<any>): void;
   trace(...args: Array<any>): void;
   debug(...args: Array<any>): void;
@@ -35,13 +35,12 @@ interface ILogger {
   error(...args: Array<any>): void;
 }
 
-interface IClogy extends ILogger {
-  new(): this;
-  noConflict(): this;
+interface IClogyMain extends IClogyLogger {
+  noConflict(): IClogyMain;
   decorator(decoFunc: () => void): void;
 }
 
-declare const clogy: IClogy;
+declare const clogy: IClogyMain;
 
 declare module 'clogy' {
   export = clogy

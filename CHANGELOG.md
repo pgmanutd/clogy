@@ -1,5 +1,9 @@
 # clogy changelog
 
+## 1.3.2
+
+- Refactored index.d.ts
+
 ## 1.3.1
 
 - Added typescript declaration file

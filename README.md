@@ -44,19 +44,19 @@ Installation
 
 * ```Development```:
 
-**rawgit**: ```//rawgit.com/pgmanutd/clogy/1.3.1/lib/clogy.js```
+**rawgit**: ```//rawgit.com/pgmanutd/clogy/1.3.2/lib/clogy.js```
 
 or
 
-**unpkg**: ```//unpkg.com/clogy@1.3.1/lib/clogy.js```
+**unpkg**: ```//unpkg.com/clogy@1.3.2/lib/clogy.js```
 
 * ```Production```:
 
-**rawgit**: ```//cdn.rawgit.com/pgmanutd/clogy/1.3.1/lib/clogy.min.js```
+**rawgit**: ```//cdn.rawgit.com/pgmanutd/clogy/1.3.2/lib/clogy.min.js```
 
 or
 
-**unpkg**: ```//unpkg.com/clogy@1.3.1/lib/clogy.min.js```
+**unpkg**: ```//unpkg.com/clogy@1.3.2/lib/clogy.min.js```
 
 
 Usage
